@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title> LÁ SỐ BÁT TỰ KUAILE </title>
+    <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7d441e; --moc: #00e676; --hoa: #ff1744; --tho: #b5651d; --kim: #545b64; --thuy: #0077b6;
+        }
+        body { font-family: 'Roboto', sans-serif; background: #f4f1ee; margin: 0; padding: 20px; color: #333; }
+        .main-card { max-width: 1100px; margin: auto; background: #fff; padding: 40px; border-radius: 30px; box-shadow: 0 15px 50px rgba(0,0,0,0.08); text-align: center; }
+
+        /* FORM UI */
+        .form-container { max-width: 650px; margin: 0 auto 50px; text-align: left; background: #fdfaf8; padding: 30px; border-radius: 20px; border: 1px solid #eee; }
+        .toggle-group { display: flex; gap: 10px; margin-bottom: 20px; }
+        .btn-toggle { flex: 1; height: 48px; border: 2px solid #ddd; border-radius: 12px; background: #fff; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .btn-toggle.active { background: var(--primary) !important; color: #fff !important; border-color: var(--primary) !important; }
+        select { height: 48px; border: 2px solid #ddd; border-radius: 12px; padding: 0 12px; font-size: 16px; width: 100%; outline: none; }
+        .btn-submit { width: 100%; height: 60px; background: var(--primary); color: #fff; border: none; border-radius: 15px; font-size: 20px; font-weight: 900; font-family: 'Roboto Slab', serif; cursor: pointer; margin-top: 15px; text-transform: uppercase; }
+
+        /* KẾT QUẢ GRID */
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 30px; }
+        .pillar { border: 1px solid #eee; border-radius: 25px; padding: 25px 10px; min-height: 450px; display: flex; flex-direction: column; align-items: center; background: #fff; }
+        .nhat-chu-box { border: 3px solid #ef4444; background: #fffafb; }
+        .can-val { font-size: 45px; font-family: 'Roboto Slab', serif; font-weight: 900; line-height: 1; }
+        .chi-val { font-size: 38px; font-family: 'Roboto Slab', serif; font-weight: 700; margin: 5px 0 12px; }
+        .ts-badge { font-size: 14px; font-weight: 800; color: #5a67d8; background: #ebf4ff; padding: 4px 16px; border-radius: 12px; margin-bottom: 10px; }
+        .nap-am-text { font-size: 14px; font-weight: 900; font-style: italic; color: #777; margin: 12px 0; border-top: 1px solid #f1f1f1; padding-top: 12px; width: 85%; }
+        
+        /* TÀNG CAN FONT TO HƠN */
+        .tang-box { width: 100%; margin-top: auto; padding-top: 15px; border-top: 1px dashed #eee; font-size: 19px; font-weight: 900; line-height: 1.8; }
+
+        /* EXTRA INFO */
+        .extra-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 35px; }
+        .extra-box { background: #fdfaf8; padding: 18px; border-radius: 15px; border: 1px solid #eee; text-align: center; }
+        .extra-box span { font-size: 14px; font-weight: 800; color: #999; text-transform: uppercase; display: block; }
+        .extra-box b { font-size: 17px; font-family: 'Roboto Slab', serif; display: block; margin-top: 6px; color: var(--primary); }
+
+        /* THẦN SÁT NẰM NGANG */
+        .ts-section { border: 1px solid #eee; border-radius: 20px; background: #fff; margin-bottom: 40px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
+        .ts-header { background: #fafafa; padding: 12px; font-weight: 900; font-size: 14px; color: #7d441e; text-transform: uppercase; border-bottom: 1px solid #eee; letter-spacing: 1px; }
+        .ts-body { display: flex; }
+        .ts-col { flex: 1; padding: 14px 5px; border-right: 1px solid #f6f6f6; text-align: center; min-height: 100px; }
+        .ts-col:last-child { border-right: none; }
+        .form-label { display: block; font-size: 14px; font-weight: 800; color: #bbb; text-transform: uppercase; margin-bottom: 10px; }
+        .ts-val { display: block; font-size: 13px; font-weight: 700; color: #333; margin-bottom: 4px; }
+        .hung-sao { color: #ef4444; }
+
+        /* SCROLL SECTIONS */
+        .section-title { text-align: left; font-weight: 900; margin-bottom: 15px; border-left: 6px solid #333; padding-left: 15px; font-size: 18px; font-family: 'Roboto Slab', serif; }
+        .scroll-x { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 15px; margin-bottom: 25px; }
+        .card { min-width: 110px; padding: 20px 10px; border: 1px solid #eee; border-radius: 18px; text-align: center; background: #fff; }
+        .active-v { background: #222; color: #fff !important; }
+
+        /* COLORS */
+        .moc { color: var(--moc) !important; } .hoa { color: var(--hoa) !important; } .tho { color: var(--tho) !important; } .kim { color: var(--kim) !important; } .thuy { color: var(--thuy) !important; }
+		
+.score-wrap {
+  width: 320px;          
+}
+
+.score-row {
+  display: flex;
+  align-items: center;
+  margin: 4px 0;
+  font-size: 13px;
+}
+
+.score-label {
+  width: 80px;
+  color: #555;
+}
+
+.score-bar {
+  flex: 1;
+  height: 8px;
+  background: #eee;
+  border-radius: 6px;
+  margin: 0 6px;
+  overflow: hidden;
+}
+
+.score-fill {
+  height: 100%;
+  border-radius: 6px;
+}
+
+.score-val {
+  width: 28px;
+  text-align: right;
+  font-size: 12px;
+  color: #666;
+}
+
+/* màu giống Ngũ hành style */
+.c-total { background: #555; }
+.c-balance { background: #4f7cff; }
+.c-day { background: #21b573; }
+.c-use { background: #f59e0b; }
+.c-ts { background: #ef4444; }
+
+/* màu ngũ hành */
+.e-kim { background: #9ca3af; }
+.e-moc { background: #22c55e; }
+.e-thuy { background: #3b82f6; }
+.e-hoa { background: #ef4444; }
+.e-tho { background: #eab308; }
+
+.vuong {
+  box-shadow: 0 0 6px rgba(255,0,0,0.6);
+}
+
+.suy {
+  opacity: 0.5;
+}
+
+.dungthan-box {
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.dungthan-box b {
+  color: #7d441e;
+}
+/* Container chung để bóp độ rộng các box lại */
+.result-group {
+    max-width: 500px; /* Độ rộng thu nhỏ của box */
+    margin: 0 auto 30px 0; /* Căn lề trái và tạo khoảng cách dưới */
+    text-align: left;
+}
+
+/* Tiêu đề nằm góc trái và font đẹp hơn */
+.section-label {
+    display: block;
+    font-weight: 800;
+    font-size: 14px;
+    color: #555;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    text-align: left; /* Đưa tiêu đề về bên trái */
+}
+
+/* Tùy chỉnh lại thẻ card để không bị tràn */
+.card {
+    min-width: auto; /* Bỏ min-width cũ */
+    width: 100%;     /* Chạy theo độ rộng của result-group */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Căn chỉnh lại thanh bar cho gọn */
+.score-wrap {
+    width: 100%; 
+}
+    </style>
+</head>
+<body>
+
+<div class="main-card">
+    <h1 style="font-family: 'Roboto Slab', serif; color: var(--primary);">LÁ SỐ BÁT TỰ KUAILE </h1>
+    
+    <div class="form-container">
+        <div class="toggle-group" id="sexGroup">
+            <button class="btn-toggle active" data-val="1">Nam</button>
+            <button class="btn-toggle" data-val="0">Nữ</button>
+        </div>
+        <div class="toggle-group" id="calendarGroup">
+            <button class="btn-toggle active" data-val="solar">Dương lịch</button>
+            <button class="btn-toggle" data-val="lunar">Âm lịch</button>
+        </div>
+        <div style="display:flex; gap:10px; margin-bottom:20px;">
+            <select id="dIn"></select><select id="mIn"></select><select id="yIn"></select>
+        </div>
+        <select id="hIn" style="margin-bottom:20px;">
+            <option value="0">Giờ Tý (23h-01h)</option><option value="2">Giờ Sửu (01h-03h)</option><option value="4">Giờ Dần (03h-05h)</option>
+            <option value="6">Giờ Mão (05h-07h)</option><option value="8">Giờ Thìn (07h-09h)</option><option value="10">Giờ Tỵ (09h-11h)</option>
+            <option value="12" selected>Giờ Ngọ (11h-13h)</option><option value="14">Giờ Mùi (13h-15h)</option><option value="16">Giờ Thân (15h-17h)</option>
+            <option value="18">Giờ Dậu (17h-19h)</option><option value="20">Giờ Tuất (19h-21h)</option><option value="22">Giờ Hợi (21h-23h)</option>
+        </select>
+        <button class="btn-submit" onclick="run()">XEM LÁ SỐ</button>
+    </div>
+
+    <div id="res" style="display:none">
+        <div class="grid" id="grid"></div>
+
+        <div class="extra-grid">
+            <div class="extra-box"><span>Thai Nguyên</span><b id="oThai"></b></div>
+            <div class="extra-box"><span>Mệnh Cung</span><b id="oMCung"></b></div>
+            <div class="extra-box"><span>Niên Không</span><b id="oNK"></b></div>
+            <div class="extra-box"><span>Nhật Không</span><b id="oNJK"></b></div>
+        </div>
+
+        <div class="ts-section">
+            <div class="ts-header">Bảng Thần Sát</div>
+            <div class="ts-body">
+                <div class="ts-col"><span class="form-label">Niên Thần</span><div id="tsN"></div></div>
+                <div class="ts-col"><span class="form-label">Nguyệt Thần</span><div id="tsM"></div></div>
+                <div class="ts-col"><span class="form-label">Nhật Thần</span><div id="tsD"></div></div>
+                <div class="ts-col"><span class="form-label">Thời Thần</span><div id="tsT"></div></div>
+            </div>
+        </div>
+
+        <div class="section-title">ĐẠI VẬN TRÌNH</div>
+        <div id="dv" class="scroll-x"></div>
+        <div class="section-title">LƯU NIÊN (20 NĂM)</div>
+        <div id="ln1" class="scroll-x" style="margin-bottom:10px"></div>
+        <div id="ln2" class="scroll-x"></div>
+
+        <!-- PHẦN PHÂN TÍCH — ẨN CHO ĐẾN KHI TÍNH -->
+        <div style="max-width:1100px; margin:30px auto 0;">
+
+            <div class="result-group">
+                <span class="section-label">⚖️ THÂN VƯỢNG / NHƯỢC</span>
+                <div class="card">
+                    <div id="thanLucUI"></div>
+                </div>
+            </div>
+
+            <div class="result-group">
+                <span class="section-label">🔥 DỤNG THẦN &amp; HỶ KỴ THẦN</span>
+                <div class="card">
+                    <div id="dungThanUI"></div>
+                </div>
+            </div>
+
+            <div class="result-group">
+                <span class="section-label">📊 CÂN BẰNG NGŨ HÀNH (có Tàng Can)</span>
+                <div class="card">
+                    <div id="elementUI"></div>
+                </div>
+            </div>
+
+            <div class="result-group">
+                <span class="section-label">🏆 ĐIỂM MỆNH THÂN</span>
+                <div class="card">
+                    <div class="score-wrap">
+                        <div id="scoreUI"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===== LUẬN GIẢI TỔNG QUÁT ===== -->
+        <div id="luanGiaiSection" style="margin-top:40px;">
+            <h2 style="font-family:'Roboto Slab',serif; color:var(--primary); font-size:22px; border-left:6px solid var(--primary); padding-left:15px; text-align:left; margin-bottom:25px;">
+                LUẬN GIẢI TỔNG QUÁT
+            </h2>
+
+            <!-- Tab navigation -->
+            <div id="lgTabs" style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:25px;">
+                <button class="lg-tab active-tab" data-tab="tinhcach" onclick="showTab('tinhcach')">👤 Tính Cách</button>
+                <button class="lg-tab" data-tab="suckhoe" onclick="showTab('suckhoe')">❤️ Sức Khỏe</button>
+                <button class="lg-tab" data-tab="giadinh" onclick="showTab('giadinh')">👨‍👩‍👧 Gia Đình & Hôn Nhân</button>
+                <button class="lg-tab" data-tab="congviec" onclick="showTab('congviec')">💼 Công Việc & Tài Chính</button>
+                <button class="lg-tab" data-tab="daivan" onclick="showTab('daivan')" style="border-color:#7d441e;color:#7d441e;">🔮 Đại Vận Hiện Tại</button>
+                <button class="lg-tab" data-tab="luunien" onclick="showTab('luunien')" style="border-color:#7d441e;color:#7d441e;">📅 Lưu Niên Năm Nay</button>
+            </div>
+
+            <div id="tab-tinhcach" class="lg-panel" style="display:block"><div id="ct-tinhcach"></div></div>
+            <div id="tab-suckhoe"  class="lg-panel" style="display:none"><div id="ct-suckhoe"></div></div>
+            <div id="tab-giadinh" class="lg-panel" style="display:none"><div id="ct-giadinh"></div></div>
+            <div id="tab-congviec" class="lg-panel" style="display:none"><div id="ct-congviec"></div></div>
+            <div id="tab-daivan"   class="lg-panel" style="display:none"><div id="ct-daivan"></div></div>
+            <div id="tab-luunien"  class="lg-panel" style="display:none"><div id="ct-luunien"></div></div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+.lg-tab {
+    padding: 10px 20px;
+    border: 2px solid #ddd;
+    border-radius: 30px;
+    background: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+    color: #555;
+}
+.lg-tab.active-tab {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+.lg-panel {
+    background: #fdfaf8;
+    border-radius: 20px;
+    padding: 28px;
+    border: 1px solid #eee;
+    text-align: left;
+}
+.lg-block {
+    margin-bottom: 22px;
+    padding: 18px 20px;
+    background: #fff;
+    border-radius: 14px;
+    border-left: 5px solid #ddd;
+    line-height: 1.75;
+    font-size: 14px;
+    color: #333;
+}
+.lg-block-title {
+    font-weight: 900;
+    font-size: 15px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.lg-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 2px 10px;
+    border-radius: 10px;
+    margin-right: 5px;
+    margin-bottom: 4px;
+    vertical-align: middle;
+}
+.tag-tot { background:#dcfce7; color:#16a34a; }
+.tag-xau { background:#fee2e2; color:#dc2626; }
+.tag-trung { background:#fef9c3; color:#ca8a04; }
+</style>
+
+<script>
+function showTab(id){
+    document.querySelectorAll('.lg-tab').forEach(t => t.classList.remove('active-tab'));
+    document.querySelectorAll('.lg-panel').forEach(p => p.style.display='none');
+    document.querySelector(`[data-tab="${id}"]`).classList.add('active-tab');
+    document.getElementById(`tab-${id}`).style.display='block';
+}
+</script>
+
+<script>
+// Khởi tạo toggle button
+document.querySelectorAll('.btn-toggle').forEach(btn => {
+    btn.addEventListener('click', function() {
+        this.parentNode.querySelectorAll('.btn-toggle').forEach(x => x.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+
+const VN={"甲":"Giáp","乙":"Ất","丙":"Bính","丁":"Đinh","戊":"Mậu","己":"Kỷ","庚":"Canh","辛":"Tân","壬":"Nhâm","癸":"Quý","子":"Tý","丑":"Sửu","寅":"Dần","卯":"Mão","辰":"Thìn","巳":"Tỵ","午":"Ngọ","未":"Mùi","申":"Thân","酉":"Dậu","戌":"Tuất","亥":"Hợi"};
+const E={"甲":"moc","乙":"moc","丙":"hoa","丁":"hoa","戊":"tho","己":"tho","庚":"kim","辛":"kim","壬":"thuy","癸":"thuy","寅":"moc","卯":"moc","巳":"hoa","午":"hoa","辰":"tho","戌":"tho","丑":"tho","未":"tho","申":"kim","酉":"kim","亥":"thuy","子":"thuy"};
+const HD={"子":["癸"],"丑":["己","癸","辛"],"寅":["甲","丙","戊"],"卯":["乙"],"辰":["戊","乙","癸"],"巳":["丙","庚","戊"],"午":["丁","己"],"未":["己","丁","乙"],"申":["庚","壬","戊"],"酉":["辛"],"戌":["戊","辛","丁"],"亥":["壬","甲"]};
+const ZHIS=["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"], CANS=["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
+const TS_L=["Trường Sinh","Mộc Dục","Quan Đới","Lâm Quan","Đế Vượng","Suy","Bệnh","Tử","Mộ","Tuyệt","Thai","Dưỡng"];
+const NAP_AM={"甲子":"Hải Trung Kim","乙丑":"Hải Trung Kim","丙寅":"Lư Trung Hỏa","丁卯":"Lư Trung Hỏa","戊辰":"Đại Lâm Mộc","己巳":"Đại Lâm Mộc","庚午":"Lộ Bàng Thổ","辛未":"Lộ Bàng Thổ","壬申":"Kiếm Phong Kim","癸酉":"Kiếm Phong Kim","甲戌":"Sơn Đầu Hỏa","乙亥":"Sơn Đầu Hỏa","丙子":"Giản Hạ Thủy","丁丑":"Giản Hạ Thủy","戊寅":"Thành Đầu Thổ","己卯":"Thành Đầu Thổ","庚辰":"Bạch Lạp Kim","辛巳":"Bạch Lạp Kim","壬午":"Dương Liễu Mộc","癸未":"Dương Liễu Mộc","甲申":"Tuyền Trung Thủy","乙酉":"Tuyền Trung Thủy","丙戌":"Ốc Thượng Thổ","丁亥":"Ốc Thượng Thổ","戊子":"Tích Lịch Hỏa","己丑":"Tích Lịch Hỏa","庚寅":"Tùng Bách Mộc","辛卯":"Tùng Bách Mộc","壬辰":"Trường Lưu Thủy","癸巳":"Trường Lưu Thủy","甲午":"Sa Trung Kim","乙未":"Sa Trung Kim","丙申":"Sơn Hạ Hỏa","丁酉":"Sơn Hạ Hỏa","戊戌":"Bình Địa Mộc","己亥":"Bình Địa Mộc","庚子":"Bích Thượng Thổ","辛丑":"Bích Thượng Thổ","壬寅":"Kim Bạch Kim","癸卯":"Kim Bạch Kim","甲辰":"Phú Đăng Hỏa","乙巳":"Phú Đăng Hỏa","丙午":"Thiên Hà Thủy","丁未":"Thiên Hà Thủy","戊申":"Đại Trạch Thổ","己酉":"Đại Trạch Thổ","庚戌":"Thoa Xuyến Kim","辛亥":"Thoa Xuyến Kim","壬子":"Tang Đố Mộc","癸丑":"Tang Đố Mộc","甲寅":"Đại Khê Thủy","乙卯":"Đại Khê Thủy","丙辰":"Sa Trung Thổ","丁巳":"Sa Trung Thổ","戊午":"Thiên Thượng Hỏa","己未":"Thiên Thượng Hỏa","庚申":"Thạch Lựu Mộc","辛酉":"Thạch Lựu Mộc","壬戌":"Đại Hải Thủy","癸亥":"Đại Hải Thủy"};
+
+window.addEventListener('DOMContentLoaded', () => {
+    const dIn = document.getElementById('dIn');
+    const mIn = document.getElementById('mIn');
+    const yIn = document.getElementById('yIn');
+
+    // Nạp dữ liệu 1-31 cho ngày
+    for(let i=1; i<=31; i++) dIn.add(new Option(i, i));
+    // Nạp dữ liệu 1-12 cho tháng
+    for(let i=1; i<=12; i++) mIn.add(new Option(i, i));
+    // Nạp dữ liệu 1950-2050 cho năm
+    for(let i=1950; i<=2050; i++) yIn.add(new Option(i, i));
+
+    // Thiết lập giá trị mặc định (Ví dụ sinh năm 1985)
+    dIn.value = 15; 
+    mIn.value = 11; 
+    yIn.value = 1985;
+});
+
+function getG(dm,tg){
+    const yy={"甲":1,"丙":1,"戊":1,"庚":1,"壬":1,"乙":0,"丁":0,"己":0,"辛":0,"癸":0};
+    let e1=E[dm], e2=E[tg], same=yy[dm]==yy[tg];
+    const gen={moc:"hoa",hoa:"tho",tho:"kim",kim:"thuy",thuy:"moc"}, khac={moc:"tho",tho:"thuy",thuy:"hoa",hoa:"kim",kim:"moc"};
+    if(e1==e2) return same?"Tỷ Kiên":"Kiếp Tài";
+    if(gen[e1]==e2) return same?"Thực Thần":"Thương Quan";
+    if(khac[e1]==e2) return same?"Thiên Tài":"Chính Tài";
+    if(khac[e2]==e1) return same?"Thất Sát":"Chính Quan";
+    if(gen[e2]==e1) return same?"Thiên Ấn":"Chính Ấn";
+}
+
+function getVTS(can, zhi) {
+    const sPos={"甲":"亥","丙":"寅","戊":"寅","庚":"巳","壬":"申","乙":"午","丁":"酉","己":"酉","辛":"子","癸":"卯"};
+    const isY=["甲","丙","戊","庚","壬"].includes(can);
+    let sIdx=ZHIS.indexOf(sPos[can]), tIdx=ZHIS.indexOf(zhi);
+    let d=isY?(tIdx-sIdx+12)%12:(sIdx-tIdx+12)%12;
+    return TS_L[d];
+}
+
+// ===== SCORING ENGINE =====
+
+// mapping ngũ hành (nếu bạn chưa có)
+
+// ===== TÀNG CAN TRỌNG SỐ (Bản khí / Trung khí / Dư khí) =====
+// Theo chuẩn Tứ Trụ: Bản khí = 4, Trung khí = 2, Dư khí = 1
+const TANG_CAN_WEIGHTS = {
+    "子": [["癸",4]],
+    "丑": [["己",4],["癸",2],["辛",1]],
+    "寅": [["甲",4],["丙",2],["戊",1]],
+    "卯": [["乙",4]],
+    "辰": [["戊",4],["乙",2],["癸",1]],
+    "巳": [["丙",4],["庚",2],["戊",1]],
+    "午": [["丁",4],["己",2]],
+    "未": [["己",4],["丁",2],["乙",1]],
+    "申": [["庚",4],["壬",2],["戊",1]],
+    "酉": [["辛",4]],
+    "戌": [["戊",4],["辛",2],["丁",1]],
+    "亥": [["壬",4],["甲",2]]
+};
+
+// ===== THÁNG VƯỢNG / TƯỚNG / TỬ / TÙ / HƯU =====
+// Sức mạnh của từng hành theo tháng (tháng = địa chi tháng)
+// Mức: 5=Vượng, 4=Tướng, 3=Sinh, 2=Hưu, 1=Tù, 0=Tử
+const SEASON_STRENGTH = {
+    moc:  {"寅":5,"卯":5,"辰":4,"巳":2,"午":2,"未":2,"申":1,"酉":1,"戌":1,"亥":3,"子":3,"丑":2},
+    hoa:  {"寅":3,"卯":3,"辰":2,"巳":5,"午":5,"未":4,"申":2,"酉":2,"戌":2,"亥":1,"子":1,"丑":1},
+    tho:  {"寅":2,"卯":1,"辰":5,"巳":3,"午":3,"未":5,"申":2,"酉":1,"戌":5,"亥":2,"子":1,"丑":5},
+    kim:  {"寅":1,"卯":1,"辰":2,"巳":1,"午":1,"未":2,"申":5,"酉":5,"戌":4,"亥":3,"子":3,"丑":2},
+    thuy: {"寅":2,"卯":2,"辰":2,"巳":1,"午":1,"未":1,"申":3,"酉":3,"戌":2,"亥":5,"子":5,"丑":4}
+};
+
+function calcNguHanh(b){
+    let nh = {kim:0, moc:0, thuy:0, hoa:0, tho:0};
+    const cans = [b.getYearGan(), b.getMonthGan(), b.getDayGan(), b.getTimeGan()];
+    const zhis = [b.getYearZhi(), b.getMonthZhi(), b.getDayZhi(), b.getTimeZhi()];
+
+    // Can: trọng số 3 mỗi can
+    cans.forEach(c => { if(E[c]) nh[E[c]] += 3; });
+
+    // Chi: cộng tàng can với trọng số bản/trung/dư khí
+    zhis.forEach(z => {
+        (TANG_CAN_WEIGHTS[z] || []).forEach(([tc, w]) => {
+            if(E[tc]) nh[E[tc]] += w;
+        });
+    });
+
+    return nh;
+}
+
+// ===== THÂN VƯỢNG / NHƯỢC =====
+// Đánh giá sức mạnh Nhật Chủ dựa trên:
+// 1. Sức mạnh theo tháng (Nguyệt Lệnh — quan trọng nhất)
+// 2. Số lượng can chi trong lá số hỗ trợ (Tỷ/Kiếp/Ấn)
+function calcThanLuc(b){
+    const dm    = b.getDayGan();
+    const dmE   = E[dm];
+    const mZhi  = b.getMonthZhi();
+
+    const SINH_DAM = {moc:"thuy", hoa:"moc", tho:"hoa", kim:"tho", thuy:"kim"};
+    const supportE = [dmE, SINH_DAM[dmE]]; // Tỷ/Kiếp + Ấn/Kiêu
+
+    // Điểm tháng lệnh (0-10)
+    const monthScore = (SEASON_STRENGTH[dmE]?.[mZhi] || 2) * 2; // 0..10
+
+    // Đếm can chi hỗ trợ (không kể Nhật Can)
+    const allStems = [b.getYearGan(), b.getMonthGan(), b.getTimeGan()];
+    const allBranches = [b.getYearZhi(), b.getMonthZhi(), b.getDayZhi(), b.getTimeZhi()];
+
+    let supportPts = 0;
+    allStems.forEach(c => { if(c !== dm && E[c] && supportE.includes(E[c])) supportPts += 3; });
+    allBranches.forEach(z => {
+        (TANG_CAN_WEIGHTS[z] || []).forEach(([tc, w]) => {
+            if(E[tc] && supportE.includes(E[tc])) supportPts += Math.floor(w/2);
+        });
+    });
+
+    const total = monthScore + supportPts;
+    // Phân loại: >=20 Vượng, 14-19 Trung bình, <14 Nhược
+    let level, label, color, advice;
+    if(total >= 22){
+        level="vuong"; label="Thân Cực Vượng 💪"; color="#ef4444";
+        advice="Nhật Chủ quá mạnh. Dụng Thần ưu tiên: Quan Sát (kiềm chế), Tài Tinh (tiêu hao), Thực Thần/Thương Quan (tiết khí).";
+    } else if(total >= 15){
+        level="trung_vuong"; label="Thân Vượng 🔥"; color="#f97316";
+        advice="Nhật Chủ mạnh. Dụng Thần ưu tiên: Quan Sát, Tài Tinh để điều tiết, hạn chế dùng Ấn Tinh.";
+    } else if(total >= 10){
+        level="trung"; label="Trung Bình ⚖️"; color="#3b82f6";
+        advice="Nhật Chủ ở mức trung hòa. Dụng Thần tùy trường hợp, ưu tiên điều hòa ngũ hành yếu.";
+    } else if(total >= 5){
+        level="trung_nhuoc"; label="Thân Nhược 🌱"; color="#10b981";
+        advice="Nhật Chủ yếu. Dụng Thần ưu tiên: Ấn Tinh/Kiêu Thần (sinh trợ), Tỷ Kiếp (trợ thân). Tránh Quan Sát, Tài Tinh.";
+    } else {
+        level="nhuoc"; label="Thân Cực Nhược 🥀"; color="#8b5cf6";
+        advice="Nhật Chủ quá yếu. Cần mạnh mẽ trợ thân: Ấn, Kiêu, Tỷ Kiếp. Hoặc xét theo Tòng Cách (thuận theo vượng khí).";
+    }
+
+    return {total, monthScore, supportPts, level, label, color, advice};
+}
+
+function renderThanLucUI(thanLuc, dm){
+    const dmName = VN[dm];
+    const pct = Math.min(100, Math.round((thanLuc.total / 35) * 100));
+    return `
+    <div style="margin-bottom:10px">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px">
+            <span style="font-weight:800; font-size:15px; color:${thanLuc.color}">${thanLuc.label}</span>
+            <span style="font-size:13px; color:#888">Điểm lực: ${thanLuc.total}/35</span>
+        </div>
+        <div style="background:#eee; border-radius:6px; height:10px; overflow:hidden">
+            <div style="width:${pct}%; height:100%; background:${thanLuc.color}; border-radius:6px; transition:width 0.5s"></div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:10px; font-size:12px; color:#666">
+            <div>📅 Điểm Nguyệt Lệnh: <b>${thanLuc.monthScore}</b>/10</div>
+            <div>🤝 Điểm hỗ trợ: <b>${thanLuc.supportPts}</b></div>
+        </div>
+    </div>
+    <div style="background:#f8f9fa; padding:10px 12px; border-radius:10px; font-size:12.5px; color:#444; line-height:1.6; border-left:3px solid ${thanLuc.color}">
+        ${thanLuc.advice}
+    </div>`;
+}
+
+// ===== DỤNG THẦN CẢI TIẾN (xét Thân vượng/nhược + Nhật Chủ hành) =====
+function findDungThan(nguhanh, thanLucLevel, dmE){
+    const SINH_MAP = {kim:"thuy", thuy:"moc", moc:"hoa", hoa:"tho", tho:"kim"};
+    const KHAC_MAP = {kim:"moc",  moc:"tho",  tho:"thuy",thuy:"hoa", hoa:"kim"};
+    // Hành nào SINH ra dmE (Ấn Kiêu)
+    const SINH_BY  = {moc:"thuy", hoa:"moc", tho:"hoa", kim:"tho", thuy:"kim"};
+    // Hành nào KHẮC dmE (Quan Sát)
+    const KHAC_BY  = {moc:"kim",  hoa:"thuy", tho:"moc", kim:"hoa", thuy:"tho"};
+
+    let vuong = Object.entries(nguhanh).sort((a,b)=>b[1]-a[1])[0][0];
+    let suy   = Object.entries(nguhanh).sort((a,b)=>a[1]-b[1])[0][0];
+    let dungThan, hyThan, kyThan, note;
+
+    if(thanLucLevel === "vuong" || thanLucLevel === "trung_vuong"){
+        // Thân mạnh → kiềm chế hoặc tiêu hao Nhật Chủ
+        dungThan = KHAC_BY[dmE];      // Quan/Sát — hành khắc Nhật Chủ
+        hyThan   = SINH_MAP[dmE];     // Thực/Thương — hành Nhật Chủ sinh ra (tiết hao)
+        kyThan   = SINH_BY[dmE];      // Ấn/Kiêu — càng sinh trợ thêm → tránh
+        note = `Nhật Chủ (${NGU_HANH_NAME[dmE]}) vượng — ưu tiên ${NGU_HANH_NAME[dungThan]} (Quan/Sát) để kiềm chế, và ${NGU_HANH_NAME[hyThan]} (Thực/Thương) để tiết hao. Hạn chế ${NGU_HANH_NAME[kyThan]} (Ấn) vì càng trợ thân.`;
+    } else if(thanLucLevel === "nhuoc" || thanLucLevel === "trung_nhuoc"){
+        // Thân yếu → sinh trợ Nhật Chủ
+        dungThan = SINH_BY[dmE];      // Ấn/Kiêu — hành sinh Nhật Chủ
+        hyThan   = dmE;               // Tỷ/Kiếp — cùng hành
+        kyThan   = KHAC_BY[dmE];      // Quan/Sát — hành khắc Nhật Chủ → tránh
+        note = `Nhật Chủ (${NGU_HANH_NAME[dmE]}) nhược — ưu tiên ${NGU_HANH_NAME[dungThan]} (Ấn/Kiêu) để sinh trợ, và ${NGU_HANH_NAME[hyThan]} (Tỷ/Kiếp) để trợ thân. Hạn chế ${NGU_HANH_NAME[kyThan]} (Quan/Sát).`;
+    } else {
+        // Trung hòa → bổ sung hành đang suy yếu
+        dungThan = SINH_BY[suy];
+        hyThan   = suy;
+        kyThan   = KHAC_BY[suy];
+        note = `Nhật Chủ (${NGU_HANH_NAME[dmE]}) trung hòa — bổ sung ${NGU_HANH_NAME[dungThan]} để cân bằng hành ${NGU_HANH_NAME[suy]} đang thiếu.`;
+    }
+
+    return {dungThan, hyThan, kyThan, note, dmE, vuong, suy};
+}
+
+const DUNGTHAN_MEANING = {
+    kim: {name:"Kim", color:"#545b64", yi:"Dứt khoát, kỷ luật, kiên định. Hợp kinh doanh, tài chính, quản lý.", mau:"Trắng, bạc, vàng nhạt", huong:"Tây, Tây Bắc"},
+    moc: {name:"Mộc", color:"#00a854", yi:"Nhân từ, sáng tạo, phát triển. Hợp giáo dục, nghệ thuật, nông nghiệp.", mau:"Xanh lá, xanh dương nhạt", huong:"Đông, Đông Nam"},
+    thuy:{name:"Thủy", color:"#0077b6", yi:"Linh hoạt, trí tuệ, giao tiếp. Hợp thương mại, du lịch, truyền thông.", mau:"Đen, xanh đen, tím", huong:"Bắc"},
+    hoa: {name:"Hỏa", color:"#ef4444", yi:"Nhiệt huyết, sáng tạo, lãnh đạo. Hợp nghệ thuật, truyền thông, bán lẻ.", mau:"Đỏ, cam, hồng", huong:"Nam"},
+    tho: {name:"Thổ", color:"#b5651d", yi:"Trung thực, ổn định, đáng tin. Hợp bất động sản, nông nghiệp, xây dựng.", mau:"Vàng đất, nâu, beige", huong:"Trung tâm, Tây Nam, Đông Bắc"}
+};
+
+function renderDungThanUI(dt){
+    const d = DUNGTHAN_MEANING[dt.dungThan] || {};
+    const h = dt.hyThan ? DUNGTHAN_MEANING[dt.hyThan] : null;
+    const k = dt.kyThan ? DUNGTHAN_MEANING[dt.kyThan] : null;
+    return `
+    <div style="font-size:13px; line-height:1.8">
+        <div style="padding:10px 14px; background:linear-gradient(135deg,#fff8f0,#fff); border:2px solid ${d.color||'#ccc'}; border-radius:12px; margin-bottom:10px">
+            <div style="font-size:15px; font-weight:900; color:${d.color}">🎯 Dụng Thần: ${d.name||dt.dungThan}</div>
+            <div style="color:#555; margin-top:4px">${d.yi||''}</div>
+            <div style="margin-top:6px; display:flex; gap:12px; font-size:12px; color:#888">
+                <span>🎨 Màu may mắn: <b style="color:${d.color}">${d.mau||'-'}</b></span>
+                <span>🧭 Hướng tốt: <b>${d.huong||'-'}</b></span>
+            </div>
+        </div>
+        ${h ? `<div style="padding:8px 14px; background:#f0fdf4; border-radius:10px; border:1px solid #86efac; margin-bottom:8px">
+            <span style="color:#15803d; font-weight:700">✅ Hỷ Thần: ${h.name}</span>
+            <span style="color:#555; margin-left:8px; font-size:12px">— ${h.yi}</span>
+        </div>` : ''}
+        ${k ? `<div style="padding:8px 14px; background:#fef2f2; border-radius:10px; border:1px solid #fca5a5; margin-bottom:8px">
+            <span style="color:#dc2626; font-weight:700">❌ Kỵ Thần: ${k.name}</span>
+            <span style="color:#555; margin-left:8px; font-size:12px">— Hạn chế màu sắc và nghề nghiệp liên quan ${k.name}</span>
+        </div>` : ''}
+        <div style="padding:8px 12px; background:#f8f9fa; border-radius:8px; color:#666; font-size:12px">${dt.note}</div>
+    </div>`;
+}
+
+// ===== NGŨ HÀNH CÓ BÌNH LUẬN =====
+const NH_COMMENT = {
+    kim: {thieu:"Thiếu Kim → dễ thiếu quyết đoán, tài chính bất ổn. Nên dùng vật phẩm Kim loại, hướng Tây.", du:"Thừa Kim → cứng nhắc, dễ xung đột. Nên dùng Thủy hoặc Mộc để điều hòa."},
+    moc: {thieu:"Thiếu Mộc → thiếu kế hoạch dài hạn, dễ bị cụt hướng. Nên trồng cây, dùng màu xanh.", du:"Thừa Mộc → thiếu quyết định, rải sức. Nên dùng Kim hoặc Hỏa tiết hao."},
+    thuy:{thieu:"Thiếu Thủy → giao tiếp hạn chế, trí tuệ dễ bị ứ đọng. Nên uống nước nhiều, đặt đồ vật màu đen.", du:"Thừa Thủy → cảm xúc bất ổn, thiếu lập trường. Nên dùng Thổ để đất cản Thủy."},
+    hoa: {thieu:"Thiếu Hỏa → thiếu nhiệt huyết, ngại giao tiếp. Nên dùng ánh đèn ấm, màu đỏ cam.", du:"Thừa Hỏa → nóng vội, dễ thất bại vì thiếu kiên nhẫn. Nên dùng Thủy hoặc Thổ kiềm chế."},
+    tho: {thieu:"Thiếu Thổ → thiếu ổn định, gia đạo bất an. Nên ở nhà đất, vật phẩm đất nung.", du:"Thừa Thổ → chậm chạp, bảo thủ. Nên dùng Mộc phá Thổ, Thủy để thông thoáng."}
+};
+
+function renderElementUI(nguhanh){
+    let total = Object.values(nguhanh).reduce((a,b)=>a+b, 0);
+    let values = Object.values(nguhanh);
+    let maxVal = Math.max(...values);
+    let minVal = Math.min(...values);
+
+    const rows = [
+        {key:"kim", cls:"e-kim"},
+        {key:"moc", cls:"e-moc"},
+        {key:"thuy",cls:"e-thuy"},
+        {key:"hoa", cls:"e-hoa"},
+        {key:"tho", cls:"e-tho"}
+    ];
+
+    let html = rows.map(r => {
+        let val     = nguhanh[r.key];
+        let percent = total ? Math.round((val/total)*100) : 0;
+        let isMax   = val === maxVal;
+        let isMin   = val === minVal;
+        let comment = isMin ? NH_COMMENT[r.key]?.thieu : (isMax ? NH_COMMENT[r.key]?.du : "");
+        return `
+        <div style="margin-bottom:${comment?'14px':'6px'}">
+            <div class="score-row">
+                <div class="score-label">
+                    ${NGU_HANH_NAME[r.key]}
+                    ${isMax ? "🔥" : ""}${isMin ? "⚠️" : ""}
+                </div>
+                <div class="score-bar">
+                    <div class="score-fill ${r.cls} ${isMax?'vuong':isMin?'suy':''}" style="width:${percent}%"></div>
+                </div>
+                <div class="score-val">${val} (${percent}%)</div>
+            </div>
+            ${comment ? `<div style="font-size:11.5px; color:#888; padding-left:82px; margin-top:2px; line-height:1.5">${comment}</div>` : ""}
+        </div>`;
+    }).join('');
+
+    return html;
+}
+
+function scoreBalance(c){
+    let vals = Object.values(c);
+    let total = vals.reduce((a,b)=>a+b, 0);
+    if(!total) return 15;
+    let max = Math.max(...vals) / total;
+    let min = Math.min(...vals) / total;
+    let diff = max - min; // tỷ lệ 0..1
+
+    if(diff <= 0.10) return 30;
+    if(diff <= 0.20) return 25;
+    if(diff <= 0.32) return 18;
+    if(diff <= 0.48) return 10;
+    return 5;
+}
+
+function scoreDayMaster(b){
+    const dm = b.getDayGan();
+    const month = b.getMonthZhi();
+
+    const support = {
+        moc:["寅","卯"],
+        hoa:["巳","午"],
+        tho:["辰","戌","丑","未"],
+        kim:["申","酉"],
+        thuy:["亥","子"]
+    };
+
+    let dmE = E[dm];
+    let score = 20;
+
+    if(support[dmE] && support[dmE].includes(month)){
+        score += 15;
+    }
+
+    return score;
+}
+
+function scoreUsefulGod(c, dm){
+    let dmE = E[dm];
+    const gen={moc:"hoa",hoa:"tho",tho:"kim",kim:"thuy",thuy:"moc"};
+    let need = gen[dmE];
+    let total = Object.values(c).reduce((a,b)=>a+b, 0);
+    let ratio = total ? c[need] / total : 0;
+
+    if(ratio >= 0.25) return 20;
+    if(ratio >= 0.15) return 12;
+    return 5;
+}
+
+function scoreThanSat(list){
+    let score = 0;
+
+    list.forEach(s=>{
+        if(["Thiên Ất","Thiên Đức","Nguyệt Đức","Phúc Đức"].includes(s)){
+            score += 2;
+        }
+        if(["Kiếp Sát","Tai Sát","Cô Thần","Quả Tú","Thập Ác"].includes(s)){
+            score -= 2;
+        }
+    });
+
+    if(score > 10) score = 10;
+    if(score < 0) score = 0;
+
+    return score;
+}
+
+function calcScore(b, thanSatList){
+    // Dùng calcNguHanh (đã tính cả tàng can) thay cho countElements đã bị xóa
+    const c = calcNguHanh(b);
+
+    let s1 = scoreBalance(c);
+    let s2 = scoreDayMaster(b);
+    let s3 = scoreUsefulGod(c, b.getDayGan());
+    let s4 = scoreThanSat(thanSatList);
+
+    let total = s1 + s2 + s3 + s4;
+
+    return {
+        total,
+        detail:{
+            balance:s1,
+            dayMaster:s2,
+            useful:s3,
+            thanSat:s4
+        }
+    };
+}
+
+function renderScoreUI(score){
+
+    const max = 60; // 🔥 scale theo thực tế của bạn (59 max)
+
+    const rows = [
+        {label:"Tổng", val:score.total, cls:"c-total"},
+        {label:"Cân bằng", val:score.detail.balance, cls:"c-balance"},
+        {label:"Thân", val:score.detail.dayMaster, cls:"c-day"},
+        {label:"Dụng", val:score.detail.useful, cls:"c-use"},
+        {label:"Sát", val:score.detail.thanSat, cls:"c-ts"},
+    ];
+
+    return rows.map(r=>{
+        let w = Math.min((r.val/max)*100,100);
+
+        return `
+        <div class="score-row">
+            <div class="score-label">${r.label}</div>
+            <div class="score-bar">
+                <div class="score-fill ${r.cls}" style="width:${w}%"></div>
+            </div>
+            <div class="score-val">${r.val}</div>
+        </div>
+        `;
+    }).join('');
+}
+
+const NGU_HANH_NAME = {kim:"Kim", moc:"Mộc", thuy:"Thủy", hoa:"Hỏa", tho:"Thổ"};
+
+// ============================================================
+//   LUẬN ĐẠI VẬN & LƯU NIÊN — CÁ NHÂN HÓA THEO THẬP THẦN
+// ============================================================
+
+// Quan hệ Thập Thần → ý nghĩa vận hạn
+const DV_THAPNTHAN_Y_NGHIA = {
+  "Tỷ Kiên": {
+    tong_quat: "Đại Vận Tỷ Kiên — Vận trình cùng hành, hỗ trợ bản thân. Đây là giai đoạn bạn tự lực cánh sinh, tinh thần độc lập và tự tin được nâng cao.",
+    su_nghiep: "Sự nghiệp phát triển tốt nhờ tự thân nỗ lực. Dễ khởi nghiệp, làm độc lập hơn là làm thuê. Có thể gặp cạnh tranh từ đồng nghiệp hoặc đối thủ cùng ngành.",
+    tai_chinh: "Tài chính tự lực, thu nhập tăng từ chính công sức bản thân. Tuy nhiên cũng dễ tốn kém do Tỷ Kiên hay chia sẻ tài lộc. Tránh bảo lãnh tài chính cho người thân.",
+    tinh_cam:  "Quan hệ bạn bè, anh chị em được coi trọng. Hôn nhân có thể gặp cạnh tranh hoặc xao nhãng do nhiều quan hệ ngang hàng. Cần chú ý dành thời gian cho gia đình.",
+    suc_khoe:  "Sức khỏe ổn định, thể chất được củng cố. Nên tận dụng giai đoạn này rèn luyện thể lực để tích lũy cho những vận sau.",
+    mau_sac: "Màu cùng hành Nhật Can", huong: "Hướng theo Nhật Can"
+  },
+  "Kiếp Tài": {
+    tong_quat: "Đại Vận Kiếp Tài — Vận trình cạnh tranh và biến động. Năng lượng mạnh mẽ nhưng dễ gây xung đột và hao tài.",
+    su_nghiep: "Môi trường làm việc cạnh tranh gay gắt. Dễ có tranh chấp với đối tác, cần hợp đồng rõ ràng trong kinh doanh. Phù hợp với nghề thi đua, thể thao, marketing.",
+    tai_chinh: "Cảnh báo hao tài — dễ mất tiền qua người thân, bạn bè, đầu tư cảm tính. Tránh cho vay, góp vốn không có bảo đảm. Giữ tài sản riêng.",
+    tinh_cam:  "Tình cảm dễ gặp sóng gió, tranh cãi. Cần kiên nhẫn và không nóng vội trong các quyết định hôn nhân. Thời điểm này không lý tưởng để kết hôn nếu có lựa chọn.",
+    suc_khoe:  "Chú ý các vấn đề về tai nạn, chấn thương. Tránh những hoạt động mạo hiểm. Giữ tinh thần bình tĩnh.",
+    mau_sac: "Hạn chế màu cùng hành", huong: "Tránh hướng xung"
+  },
+  "Thực Thần": {
+    tong_quat: "Đại Vận Thực Thần — Vận trình sáng tạo và hưởng thụ. Đây là một trong những đại vận tốt nhất, mang lại cuộc sống sung túc, tài năng nở rộ.",
+    su_nghiep: "Sự nghiệp thăng tiến nhờ tài năng và sự sáng tạo. Rất phù hợp với các ngành nghệ thuật, giáo dục, ẩm thực, dịch vụ. Dễ được công nhận và khen thưởng.",
+    tai_chinh: "Tài vận tốt, tiền vào đều đặn từ chuyên môn và sáng tạo. Nên đầu tư vào phát triển bản thân và kỹ năng. Ít rủi ro tài chính trong giai đoạn này.",
+    tinh_cam:  "Cuộc sống gia đình ấm áp, hạnh phúc. Dễ có con hoặc con cái phát triển tốt. Mối quan hệ tình cảm hài hòa và ổn định.",
+    suc_khoe:  "Sức khỏe tốt, tinh thần lạc quan. Đây là giai đoạn lý tưởng để dưỡng sức và hưởng thụ cuộc sống.",
+    mau_sac: "Màu hành Nhật Can sinh ra", huong: "Hướng của hành Thực Thần"
+  },
+  "Thương Quan": {
+    tong_quat: "Đại Vận Thương Quan — Vận trình tài năng vượt trội nhưng dễ phá cách. Bộc trực, cá tính mạnh, dễ gây mâu thuẫn với cấp trên và quy tắc.",
+    su_nghiep: "Không hợp làm công chức, nhà nước trong giai đoạn này. Phù hợp khởi nghiệp, nghề tự do, nghệ thuật, sáng tác. Cần tránh phản bác sếp hay chỉ trích công khai.",
+    tai_chinh: "Kiếm tiền tốt nhờ tài năng đặc biệt, nhưng cũng dễ tiêu hết vì lối sống phóng khoáng. Cần kỷ luật tài chính và có quỹ dự phòng.",
+    tinh_cam:  "Với nữ: Cẩn thận trong hôn nhân — Thương Quan khắc Chính Quan (chồng). Với nam: Có con gái, con cái thông minh. Cần kiểm soát ngôn từ với người bạn đời.",
+    suc_khoe:  "Dễ bị stress, kiệt sức vì làm việc quá sức. Cần nghỉ ngơi đủ giấc, tránh dùng chất kích thích.",
+    mau_sac: "Màu sáng tạo, nghệ thuật", huong: "Hướng linh hoạt"
+  },
+  "Thiên Tài": {
+    tong_quat: "Đại Vận Thiên Tài — Vận trình tài lộc bất ngờ, linh hoạt. Tiền đến từ nhiều hướng không ngờ tới, nhưng cũng dễ đến rồi đi.",
+    su_nghiep: "Cơ hội kinh doanh, đầu tư mở ra nhiều. Năng động, nhạy bén với thời cơ. Phù hợp thương mại, môi giới, đầu tư ngắn hạn.",
+    tai_chinh: "Tài lộc khá, dễ có thu nhập ngoài lương, kiếm tiền từ nhiều nguồn. Tuy nhiên tiền dễ đến dễ đi — nên tiết kiệm và đầu tư dài hạn.",
+    tinh_cam:  "Với nam: Có lợi về tình cảm, dễ gặp người bạn đời tốt hoặc quan hệ hôn nhân được cải thiện. Với nữ: Cha có thể cần chú ý sức khỏe trong giai đoạn này.",
+    suc_khoe:  "Sức khỏe ổn định. Chú ý không nên bỏ bê sức khỏe khi bận rộn kiếm tiền.",
+    mau_sac: "Màu vàng đất, nâu vàng", huong: "Hướng thuận tài"
+  },
+  "Chính Tài": {
+    tong_quat: "Đại Vận Chính Tài — Vận trình ổn định và tích lũy tài sản bền vững. Đây là giai đoạn lý tưởng để xây dựng nền tảng tài chính vững chắc.",
+    su_nghiep: "Sự nghiệp ổn định, thăng tiến đều đặn. Phù hợp với công việc có lương cố định, quản lý tài sản, bất động sản, ngân hàng.",
+    tai_chinh: "Tài lộc tốt và bền vững. Đây là giai đoạn vàng để tích lũy, mua bất động sản, đầu tư dài hạn. Tránh mạo hiểm vì sẽ mất đi sự ổn định quý giá này.",
+    tinh_cam:  "Với nam: Hôn nhân thuận lợi, vợ đảm đang, gia đình hạnh phúc. Đây là thời điểm tốt để kết hôn hoặc củng cố hôn nhân. Với nữ: Tình cảm ổn định với cha.",
+    suc_khoe:  "Sức khỏe tốt, ổn định. Nên duy trì thói quen tốt và đừng thay đổi đột ngột.",
+    mau_sac: "Màu vàng, nâu, đất", huong: "Hướng Tây Nam"
+  },
+  "Thất Sát": {
+    tong_quat: "Đại Vận Thất Sát — Vận trình thách thức và áp lực mạnh. Nếu Nhật Chủ vượng: Có thể vượt qua và thành công lớn. Nếu Nhật Chủ nhược: Cần thận trọng và phòng thủ.",
+    su_nghiep: "Áp lực công việc cao, dễ có xung đột với cấp trên hoặc đối thủ. Tuy nhiên nếu vượt qua được là bước đệm thăng tiến mạnh. Nghề quân sự, pháp luật, cạnh tranh khốc liệt phù hợp.",
+    tai_chinh: "Tài chính dễ biến động, có thể gặp tổn thất bất ngờ. Tránh đầu tư mạo hiểm, giữ tiền mặt dự phòng ít nhất 6 tháng chi tiêu.",
+    tinh_cam:  "Tình cảm và hôn nhân dễ gặp căng thẳng, xung đột. Với nữ: Người bạn đời có thể khó tính hoặc giai đoạn này hai bên nhiều bất đồng. Cần bình tĩnh và nhẫn nhịn.",
+    suc_khoe:  "Cần chú ý sức khỏe — dễ gặp tai nạn, bệnh tật bất ngờ. Tránh tham gia giao thông vào giờ cao điểm, không đi đêm một mình.",
+    mau_sac: "Màu trung tính", huong: "Tránh hướng xung với Nhật Chi"
+  },
+  "Chính Quan": {
+    tong_quat: "Đại Vận Chính Quan — Vận trình danh dự và địa vị. Uy tín được công nhận, dễ thăng chức và có cơ hội trong hệ thống nhà nước, tổ chức lớn.",
+    su_nghiep: "Rất thuận lợi cho sự nghiệp, đặc biệt trong cơ quan nhà nước, tổ chức uy tín. Dễ được thăng chức, nhận giải thưởng, danh tiếng tốt trong ngành.",
+    tai_chinh: "Tài chính ổn định từ lương và chức vụ. Không phải giai đoạn kiếm tiền nhanh nhưng tích lũy bền vững và có địa vị xã hội đảm bảo.",
+    tinh_cam:  "Với nữ: Hôn nhân rất thuận lợi — dễ gặp chồng tốt hoặc hôn nhân được củng cố. Với nam: Ổn định trong tình cảm, danh dự gia đình được coi trọng.",
+    suc_khoe:  "Sức khỏe tốt nhờ lối sống có kỷ luật. Nên duy trì các thói quen sức khỏe định kỳ.",
+    mau_sac: "Màu đại diện quyền lực: đen, navy", huong: "Hướng Bắc hoặc theo Quan tinh"
+  },
+  "Thiên Ấn": {
+    tong_quat: "Đại Vận Thiên Ấn (Kiêu Thần) — Vận trình học thuật và ẩn dật. Trực giác mạnh, học hỏi nhanh, nhưng dễ cô lập và lười biếng.",
+    su_nghiep: "Phù hợp với nghiên cứu, học thuật, nghề độc lập, tâm linh. Không hợp với môi trường nhóm hay bán hàng. Nếu có Thực Thần trong lá số gốc cần chú ý Kiêu Thần khắc Thực Thần.",
+    tai_chinh: "Tài chính không phải điểm mạnh trong giai đoạn này. Thu nhập từ trí tuệ và kiến thức. Tránh đầu tư mạo hiểm, giữ ổn định.",
+    tinh_cam:  "Dễ có xu hướng rút lui, ít giao tiếp xã hội. Cần chủ động duy trì các mối quan hệ. Với nữ: Quan hệ mẹ-con hoặc người trợ giúp được coi trọng.",
+    suc_khoe:  "Sức khỏe cần chú ý nếu Kiêu Thần quá vượng. Dễ lười vận động. Nên tập các bộ môn nhẹ nhàng như thiền, yoga.",
+    mau_sac: "Màu trầm, học thuật", huong: "Hướng theo hành Ấn"
+  },
+  "Chính Ấn": {
+    tong_quat: "Đại Vận Chính Ấn — Vận trình học hỏi, quý nhân và phúc lộc. Đây là một trong những đại vận tốt nhất — có quý nhân hỗ trợ, học vấn thăng tiến, cuộc sống được che chở.",
+    su_nghiep: "Sự nghiệp được quý nhân nâng đỡ, dễ có cơ hội từ người trên. Phù hợp học thêm bằng cấp, phát triển chuyên môn. Môi trường giáo dục, học thuật, văn hóa rất thuận.",
+    tai_chinh: "Tài chính ổn định, có người hỗ trợ hoặc thừa kế. Không phải giai đoạn giàu nhanh nhưng cuộc sống được đảm bảo và bình an.",
+    tinh_cam:  "Mối quan hệ với mẹ, người trên, thầy cô được coi trọng. Tình cảm ổn định và ấm áp. Gia đình hòa thuận, được người thân che chở.",
+    suc_khoe:  "Sức khỏe tốt, được phúc lộc bảo vệ. Đây là giai đoạn lý tưởng để phục hồi sức khỏe sau giai đoạn vất vả.",
+    mau_sac: "Màu theo hành Ấn", huong: "Hướng của quý nhân"
+  }
+};
+
+// Quan hệ Xung / Hợp / Hình / Hại / Phá địa chi
+const XUNG_CHI = {"子":"午","午":"子","丑":"未","未":"丑","寅":"申","申":"寅","卯":"酉","酉":"卯","辰":"戌","戌":"辰","巳":"亥","亥":"巳"};
+const HOP_CHI  = {"子":"丑","丑":"子","寅":"亥","亥":"寅","卯":"戌","戌":"卯","辰":"酉","酉":"辰","巳":"申","申":"巳","午":"未","未":"午"};
+const HINH_CHI = {"寅":"巳","巳":"申","申":"寅","丑":"戌","戌":"未","未":"丑","子":"卯","卯":"子","辰":"辰","午":"午","酉":"酉","亥":"亥"};
+// Tam hợp cục
+const TAMHOP = [["申","子","辰"],["寅","午","戌"],["亥","卯","未"],["巳","酉","丑"]];
+// Lục hợp
+const LUCHOP = {"子":"丑","丑":"子","寅":"亥","亥":"寅","卯":"戌","戌":"卯","辰":"酉","酉":"辰","巳":"申","申":"巳","午":"未","未":"午"};
+
+function getChiRelation(chi1, chi2){
+    let rel = [];
+    if(XUNG_CHI[chi1] === chi2) rel.push({text:"Xung", cls:"tag-xau", icon:"⚡"});
+    if(HOP_CHI[chi1]  === chi2) rel.push({text:"Lục Hợp", cls:"tag-tot", icon:"🤝"});
+    if(HINH_CHI[chi1] === chi2) rel.push({text:"Hình", cls:"tag-xau", icon:"⚠️"});
+    if(LUCHOP[chi1]   === chi2) rel.push({text:"Hợp", cls:"tag-tot", icon:"✨"});
+    // Tam hợp một phần
+    for(let g of TAMHOP){
+        if(g.includes(chi1) && g.includes(chi2)) rel.push({text:"Tam Hợp", cls:"tag-tot", icon:"🌟"});
+    }
+    if(rel.length===0) rel.push({text:"Bình", cls:"tag-trung", icon:"➖"});
+    return rel;
+}
+
+// Lấy Thập Thần của một Can so với Nhật Can
+function getThapThanName(dm, can){
+    return getG(dm, can) || "—";
+}
+
+// Tên đầy đủ cho Địa Chi
+function chiFullName(z){ return VN[z]||z; }
+
+// ── LUẬN ĐẠI VẬN HIỆN TẠI ──
+function luanDaiVan(dm, b, sA_fix, dir_fix, currentYear, birthYear){
+    const dmE = E[dm];
+    // Tính Đại Vận hiện tại
+    let activeDV = null;
+    for(let i=0; i<8; i++){
+        const cI = (CANS.indexOf(b.getMonthGan()) + dir_fix*(i+1) + 10) % 10;
+        const zI = (ZHIS.indexOf(b.getMonthZhi()) + dir_fix*(i+1) + 12) % 12;
+        const ageStart = sA_fix + i*10;
+        const yearStart = birthYear + ageStart;
+        if(currentYear >= yearStart && currentYear < yearStart+10){
+            activeDV = { can: CANS[cI], zhi: ZHIS[zI], ageStart, yearStart, idx: i };
+            break;
+        }
+    }
+
+    if(!activeDV){
+        // Chưa vào đại vận hoặc hết đại vận
+        const firstAge = sA_fix;
+        const firstYear = birthYear + firstAge;
+        if(currentYear < firstYear){
+            return `<div class="lg-block" style="border-left-color:#aaa">
+                <div class="lg-block-title">⏳ Chưa Khởi Vận</div>
+                <p>Chủ nhân lá số chưa bước vào Đại Vận đầu tiên. Đại Vận đầu sẽ bắt đầu năm <b>${firstYear}</b> (${firstAge} tuổi).</p>
+                <p style="color:#888;font-size:13px">Trong giai đoạn trước Đại Vận, cuộc sống chịu ảnh hưởng chính từ Trụ Năm và môi trường gia đình.</p>
+            </div>`;
+        }
+        return `<div class="lg-block" style="border-left-color:#aaa"><div class="lg-block-title">ℹ️ Ngoài phạm vi 8 Đại Vận tính toán</div></div>`;
+    }
+
+    const ttCan = getThapThanName(dm, activeDV.can);
+    const ynDV  = DV_THAPNTHAN_Y_NGHIA[ttCan] || DV_THAPNTHAN_Y_NGHIA["Tỷ Kiên"];
+    const ageNow = currentYear - birthYear;
+    const ageInDV = ageNow - activeDV.ageStart;
+
+    // Quan hệ địa chi Đại Vận với các trụ gốc
+    const dayZhi   = b.getDayZhi();
+    const monthZhi = b.getMonthZhi();
+    const yearZhi  = b.getYearZhi();
+    const timeZhi  = b.getTimeZhi();
+
+    const relDay   = getChiRelation(activeDV.zhi, dayZhi);
+    const relMonth = getChiRelation(activeDV.zhi, monthZhi);
+    const relYear  = getChiRelation(activeDV.zhi, yearZhi);
+
+    // Thập thần của Can Đại Vận
+    const ttCanHtml = `<span class="lg-tag tag-trung">${ttCan}</span>`;
+
+    // Render quan hệ chi
+    function renderRel(rels, label){
+        return rels.map(r=>`<span class="lg-tag ${r.cls}">${r.icon} ${r.text} ${label}</span>`).join(' ');
+    }
+
+    let chiRelHtml = "";
+    const hasXung  = [...relDay,...relMonth,...relYear].some(r=>r.text==="Xung");
+    const hasHop   = [...relDay,...relMonth,...relYear].some(r=>r.text.includes("Hợp")||r.text.includes("Hợp"));
+    const hasHinh  = [...relDay,...relMonth,...relYear].some(r=>r.text==="Hình");
+
+    chiRelHtml += `<div style="margin:8px 0 4px;font-size:13px;font-weight:700;color:#555">Địa Chi Đại Vận <b class="${E[activeDV.zhi]}">${VN[activeDV.zhi]}</b> tác động:</div>`;
+    chiRelHtml += `<div style="margin-bottom:6px">${renderRel(relDay,"Nhật Chi")} ${renderRel(relMonth,"Nguyệt Chi")} ${renderRel(relYear,"Niên Chi")}</div>`;
+
+    // Lời giải thích xung/hợp
+    let chiNote = "";
+    if(hasXung)  chiNote += `<div style="color:#dc2626;font-size:13px;margin-top:4px">⚡ Có xung địa chi — giai đoạn này dễ có thay đổi lớn, biến động về chỗ ở, công việc, hoặc tình cảm. Cần chuẩn bị tâm lý và dự phòng tài chính tốt.</div>`;
+    if(hasHinh)  chiNote += `<div style="color:#dc2626;font-size:13px;margin-top:4px">⚠️ Có hình địa chi — cần chú ý sức khỏe, tránh tranh chấp pháp lý và mâu thuẫn không đáng.</div>`;
+    if(hasHop)   chiNote += `<div style="color:#16a34a;font-size:13px;margin-top:4px">✨ Có hợp địa chi — môi trường hỗ trợ tốt, dễ gặp quý nhân và cơ hội trong giai đoạn này.</div>`;
+
+    let html = "";
+
+    // Block tiêu đề đại vận
+    html += `<div class="lg-block" style="border-left-color:#7d441e;background:linear-gradient(135deg,#fdfaf8,#fff8f0)">
+        <div class="lg-block-title" style="font-size:17px">
+            🔮 Đại Vận ${VN[activeDV.can]} ${VN[activeDV.zhi]} 
+            <span style="font-size:13px;font-weight:400;color:#888">(${activeDV.yearStart}–${activeDV.yearStart+9} · Năm ${activeDV.ageStart}–${activeDV.ageStart+9} tuổi)</span>
+        </div>
+        <div style="margin-bottom:10px">
+            ${ttCanHtml}
+            <span class="lg-tag tag-trung">Năm thứ ${ageInDV+1}/10 của vận</span>
+            <span class="lg-tag ${E[activeDV.can]==='moc'?'tag-tot':E[activeDV.can]==='hoa'?'tag-xau':'tag-trung'}">
+                Hành ${NGU_HANH_NAME[E[activeDV.can]]}
+            </span>
+        </div>
+        <div style="line-height:1.8;font-size:14px">${ynDV.tong_quat}</div>
+        ${chiRelHtml}${chiNote}
+    </div>`;
+
+    // 4 block chi tiết
+    const blocks = [
+        {icon:"💼", title:"Sự Nghiệp & Công Việc", content: ynDV.su_nghiep, color:"#0077b6"},
+        {icon:"💰", title:"Tài Chính & Đầu Tư",    content: ynDV.tai_chinh, color:"#f59e0b"},
+        {icon:"💑", title:"Tình Cảm & Gia Đình",   content: ynDV.tinh_cam,  color:"#e91e8c"},
+        {icon:"❤️", title:"Sức Khỏe",               content: ynDV.suc_khoe,  color:"#ef4444"},
+    ];
+    blocks.forEach(bk => {
+        html += lgBlock(bk.icon, bk.title, bk.content, bk.color);
+    });
+
+    // Tổng kết nhanh
+    const isTot = ["Thực Thần","Chính Ấn","Chính Quan","Chính Tài"].includes(ttCan);
+    const isXau = ["Kiếp Tài","Thất Sát","Thương Quan"].includes(ttCan) && !hasHop;
+    html += lgBlock("📌","Nhận Định Chung Giai Đoạn Này",
+        isTot
+            ? `Đây là <b style="color:#16a34a">giai đoạn thuận lợi</b> trong cuộc đời. Hãy tận dụng tối đa cơ hội, mở rộng quan hệ và đầu tư vào bản thân. Năm ${activeDV.yearStart + 3}–${activeDV.yearStart + 7} thường là đỉnh điểm của vận này.`
+            : isXau
+            ? `Đây là <b style="color:#dc2626">giai đoạn cần thận trọng</b>. Hãy tập trung phòng thủ, củng cố nền tảng, tránh mạo hiểm lớn. Vận khó thường là bàn đạp để vận sau tốt hơn nếu biết chuẩn bị.`
+            : `Đây là <b style="color:#ca8a04">giai đoạn trung bình</b> — không quá thuận cũng không quá khó. Kết quả phụ thuộc nhiều vào nỗ lực cá nhân và Lưu Niên hàng năm.`,
+        isTot ? "#16a34a" : isXau ? "#ef4444" : "#f59e0b");
+
+    return html;
+}
+
+// ── LUẬN LƯU NIÊN NĂM XEM ──
+function luanLuuNien(dm, b, currentYear){
+    const dmE = E[dm];
+    const l_lunar = Lunar.fromSolar(Solar.fromYmd(currentYear, 6, 15));
+    const lnCan = l_lunar.getYearGan();
+    const lnZhi = l_lunar.getYearZhi();
+
+    const ttLN = getThapThanName(dm, lnCan);
+    const ynLN = DV_THAPNTHAN_Y_NGHIA[ttLN] || DV_THAPNTHAN_Y_NGHIA["Tỷ Kiên"];
+
+    // Quan hệ Địa Chi lưu niên với các trụ gốc
+    const dayZhi   = b.getDayZhi();
+    const monthZhi = b.getMonthZhi();
+    const yearZhi  = b.getYearZhi();
+    const timeZhi  = b.getTimeZhi();
+
+    const relDay   = getChiRelation(lnZhi, dayZhi);
+    const relMonth = getChiRelation(lnZhi, monthZhi);
+    const relYear  = getChiRelation(lnZhi, yearZhi);
+    const relTime  = getChiRelation(lnZhi, timeZhi);
+
+    const hasXung = [...relDay,...relMonth,...relYear,...relTime].some(r=>r.text==="Xung");
+    const hasHop  = [...relDay,...relMonth,...relYear,...relTime].some(r=>r.text.includes("Hợp"));
+    const hasHinh = [...relDay,...relMonth,...relYear,...relTime].some(r=>r.text==="Hình");
+
+    // Tháng tốt/xấu trong năm (dựa trên quan hệ Nguyệt Chi)
+    function getMonthAdvice(){
+        const MONTH_CHI = ["寅","卯","辰","巳","午","未","申","酉","戌","亥","子","丑"]; // tháng 1-12
+        let totThang=[], xuatThang=[];
+        MONTH_CHI.forEach((mc, idx) => {
+            const rels = getChiRelation(lnZhi, mc);
+            const isHop  = rels.some(r=>r.text.includes("Hợp"));
+            const isXung = rels.some(r=>r.text==="Xung"||r.text==="Hình");
+            if(isHop)  totThang.push(`Tháng ${idx+1}`);
+            if(isXung) xuatThang.push(`Tháng ${idx+1}`);
+        });
+        return {totThang, xuatThang};
+    }
+    const {totThang, xuatThang} = getMonthAdvice();
+
+    function renderRel(rels, label){
+        return rels.map(r=>`<span class="lg-tag ${r.cls}">${r.icon} ${r.text} ${label}</span>`).join(' ');
+    }
+
+    let html = "";
+
+    // Block tiêu đề năm
+    const napAmLN = NAP_AM[lnCan+lnZhi]||"";
+    html += `<div class="lg-block" style="border-left-color:#7d441e;background:linear-gradient(135deg,#f0f9ff,#fff)">
+        <div class="lg-block-title" style="font-size:17px">
+            📅 Lưu Niên ${currentYear} — <span class="${E[lnCan]}">${VN[lnCan]}</span> <span class="${E[lnZhi]}">${VN[lnZhi]}</span>
+            ${napAmLN ? `<span style="font-size:12px;font-weight:400;color:#888;margin-left:6px">(${napAmLN})</span>` : ""}
+        </div>
+        <div style="margin-bottom:10px">
+            <span class="lg-tag tag-trung">${ttLN}</span>
+            <span class="lg-tag tag-trung">Hành ${NGU_HANH_NAME[E[lnCan]]||""}</span>
+        </div>
+        <div style="line-height:1.8;font-size:14px">${ynLN.tong_quat.replace("Đại Vận","Lưu Niên")}</div>
+        <div style="margin-top:12px">
+            <div style="font-size:13px;font-weight:700;color:#555;margin-bottom:5px">Địa Chi Năm <b class="${E[lnZhi]}">${VN[lnZhi]}</b> tác động lá số:</div>
+            <div>${renderRel(relDay,"Nhật Chi")} ${renderRel(relMonth,"Nguyệt Chi")} ${renderRel(relYear,"Niên Chi")} ${renderRel(relTime,"Thời Chi")}</div>
+        </div>
+        ${hasXung ? `<div style="color:#dc2626;font-size:13px;margin-top:8px">⚡ Năm có xung địa chi — dễ có biến động lớn trong năm này. Giữ thái độ bình tĩnh, tránh đưa ra quyết định lớn khi cảm xúc chưa ổn định.</div>`:""}
+        ${hasHinh ? `<div style="color:#dc2626;font-size:13px;margin-top:8px">⚠️ Năm có hình địa chi — cẩn thận sức khỏe, tranh chấp và rủi ro pháp lý.</div>`:""}
+        ${hasHop  ? `<div style="color:#16a34a;font-size:13px;margin-top:8px">✨ Năm có hợp địa chi — cơ hội và quý nhân xuất hiện, năm thuận lợi.</div>`:""}
+    </div>`;
+
+    // 4 block chi tiết năm
+    html += lgBlock("💼","Sự Nghiệp Năm " + currentYear,
+        ynLN.su_nghiep.replace("giai đoạn này","năm "+currentYear), "#0077b6");
+    html += lgBlock("💰","Tài Chính Năm " + currentYear,
+        ynLN.tai_chinh.replace("giai đoạn này","năm "+currentYear), "#f59e0b");
+    html += lgBlock("💑","Tình Cảm & Gia Đình Năm " + currentYear,
+        ynLN.tinh_cam.replace("giai đoạn này","năm "+currentYear), "#e91e8c");
+    html += lgBlock("❤️","Sức Khỏe Năm " + currentYear,
+        ynLN.suc_khoe.replace("giai đoạn này","năm "+currentYear), "#ef4444");
+
+    // Tháng tốt/xấu
+    if(totThang.length || xuatThang.length){
+        html += lgBlock("🗓️","Tháng Tốt & Tháng Cần Thận Trọng",
+            `${totThang.length ? `<b style="color:#16a34a">✅ Tháng thuận lợi:</b> ${totThang.join(", ")}<br>` : ""}
+            ${xuatThang.length ? `<b style="color:#dc2626">⚠️ Tháng cần thận trọng:</b> ${xuatThang.join(", ")}` : ""}
+            <div style="font-size:12px;color:#888;margin-top:6px">*Tính theo quan hệ địa chi hàng tháng với lưu niên. Chỉ mang tính tham khảo, cần kết hợp với Lưu Nguyệt chính xác hơn.</div>`,
+            "#5a67d8");
+    }
+
+    return html;
+}
+
+// ============================================================
+
+// ── TÍNH CÁCH THEO NHẬT CAN ──
+const TC_NHAT_CAN = {
+  "甲":{ ten:"Giáp Mộc", icon:"🌳",
+    chinh:"Chính trực, có lý tưởng rõ ràng, kiên định như cây đại thụ. Luôn hướng lên cao và không dễ khuất phục trước áp lực.",
+    phu:"Đôi khi cứng nhắc, khó chấp nhận ý kiến trái chiều, dễ tự ái khi bị phê bình.",
+    quan_he:"Chung thủy, bảo vệ người thân. Tuy nhiên hay áp đặt quan điểm cá nhân lên người xung quanh." },
+  "乙":{ ten:"Ất Mộc", icon:"🌿",
+    chinh:"Mềm mại, khéo léo, linh hoạt thích nghi. Có khiếu thẩm mỹ và cảm xúc tinh tế, dễ chinh phục lòng người.",
+    phu:"Thiếu quyết đoán, hay do dự, dễ bị ảnh hưởng bởi môi trường xung quanh.",
+    quan_he:"Tình cảm sâu sắc, biết cách duy trì mối quan hệ nhưng đôi khi phụ thuộc quá vào người khác." },
+  "丙":{ ten:"Bính Hỏa", icon:"☀️",
+    chinh:"Nhiệt tình, cởi mở, năng động. Toả sáng trong đám đông, có sức hút tự nhiên và khả năng truyền cảm hứng.",
+    phu:"Nóng vội, thiếu kiên nhẫn, dễ bùng phát cảm xúc. Đôi khi thiếu chiều sâu trong suy nghĩ.",
+    quan_he:"Hào phóng, vui vẻ trong các mối quan hệ nhưng cần cẩn thận với sự thiếu nhất quán về cảm xúc." },
+  "丁":{ ten:"Đinh Hỏa", icon:"🕯️",
+    chinh:"Tinh tế, trực giác nhạy bén, kiên trì âm thầm. Như ngọn nến — không rực rỡ nhưng bền bỉ và soi sáng người khác.",
+    phu:"Dễ lo âu, suy nghĩ nhiều, tâm lý nhạy cảm có thể dẫn đến mệt mỏi nội tâm.",
+    quan_he:"Yêu sâu đậm, chân thành. Có xu hướng hy sinh bản thân trong tình cảm." },
+  "戊":{ ten:"Mậu Thổ", icon:"⛰️",
+    chinh:"Trung hậu, đáng tin cậy, ổn định. Là chỗ dựa vững chắc cho người xung quanh, có bản lĩnh chịu đựng tốt.",
+    phu:"Bảo thủ, chậm thay đổi, đôi khi cứng nhắc trong tư duy. Ngại rủi ro.",
+    quan_he:"Trung thành tuyệt đối, nhưng đôi khi thiếu sự lãng mạn và biểu đạt cảm xúc." },
+  "己":{ ten:"Kỷ Thổ", icon:"🌾",
+    chinh:"Cẩn thận, chu đáo, khéo léo trong ứng xử. Biết cách nuôi dưỡng và chăm sóc người khác.",
+    phu:"Hay lo xa, đôi khi cầu toàn thái quá, dễ mang nặng tâm tư.",
+    quan_he:"Tận tâm với gia đình, nhưng cần học cách buông bỏ và không ôm đồm quá nhiều." },
+  "庚":{ ten:"Canh Kim", icon:"⚔️",
+    chinh:"Dứt khoát, mạnh mẽ, có chí tiến thủ. Không ngại đối đầu với thử thách, ý chí kiên cường.",
+    phu:"Nóng tính, cứng rắn đôi khi đến mức lạnh lùng. Khó thỏa hiệp trong các tranh luận.",
+    quan_he:"Công bằng và bảo vệ người thân, nhưng đôi khi thiếu sự mềm mỏng cần thiết trong tình cảm." },
+  "辛":{ ten:"Tân Kim", icon:"💎",
+    chinh:"Tinh tế, thông minh, nhạy cảm với cái đẹp. Có tiêu chuẩn cao và gu thẩm mỹ xuất sắc.",
+    phu:"Tự ái, đòi hỏi cao, dễ bị tổn thương dù vẻ ngoài lạnh lùng.",
+    quan_he:"Chọn lọc trong tình cảm, đặt tiêu chuẩn cao cho người bạn đời. Cần được tôn trọng và trân trọng." },
+  "壬":{ ten:"Nhâm Thủy", icon:"🌊",
+    chinh:"Thông minh, linh hoạt, đa mưu túc kế. Tư duy rộng và khả năng phân tích xuất sắc.",
+    phu:"Không nhất quán, dễ thay đổi lập trường. Đôi khi quá tính toán, thiếu chân thành.",
+    quan_he:"Cuốn hút nhưng khó đoán trong tình cảm. Cần ổn định hơn để duy trì mối quan hệ bền vững." },
+  "癸":{ ten:"Quý Thủy", icon:"🌧️",
+    chinh:"Trực giác mạnh, nhạy cảm, thấu hiểu sâu sắc. Khả năng đọc vị người khác và nắm bắt cơ hội tốt.",
+    phu:"Hay bi quan, dễ rơi vào trạng thái cảm xúc tiêu cực. Đôi khi thiếu tự tin.",
+    quan_he:"Cảm xúc phong phú và yêu thương chân thật. Cần được sự an ủi và đồng hành." }
+};
+
+// ── TÍNH CÁCH BỔ SUNG THEO THÂN VƯỢNG / NHƯỢC ──
+const TC_THAN_LUC = {
+  vuong:       "Bạn có cá tính mạnh, tự lập và không phụ thuộc. Dễ thành công khi tự mình quyết định nhưng cần chú ý không nên quá độc đoán.",
+  trung_vuong: "Tự tin vừa phải, có chính kiến rõ ràng. Khả năng lãnh đạo tốt khi biết cân bằng giữa ý chí cá nhân và sự hợp tác.",
+  trung:       "Tính cách ôn hòa, dễ thích nghi. Bạn là người biết cân nhắc và thường được đánh giá cao vì sự công bằng.",
+  trung_nhuoc: "Tinh tế, giỏi quan sát. Bạn phát huy tốt khi có sự hỗ trợ từ môi trường và cộng sự phù hợp.",
+  nhuoc:       "Nhạy cảm, giàu cảm xúc và trực giác. Hãy chú trọng xây dựng mạng lưới hỗ trợ và tránh đặt gánh nặng lên bản thân quá mức."
+};
+
+// ── SỨC KHỎE THEO NGŨ HÀNH NHẬT CAN ──
+const SK_NGU_HANH = {
+  moc: { co_quan:"Gan, mật, mắt, gân cơ, móng tay móng chân.",
+         canh_giac:"Dễ gặp vấn đề về gan, cao huyết áp, căng thẳng thần kinh. Chú ý chế độ ăn giảm dầu mỡ, hạn chế rượu bia.",
+         tot:"Tập thể dục ngoài trời, thiền định, yoga nhẹ nhàng. Màu xanh lá và không gian thiên nhiên giúp phục hồi sức khỏe tốt." },
+  hoa: { co_quan:"Tim mạch, tiểu trường, lưỡi, hệ tuần hoàn máu.",
+         canh_giac:"Nguy cơ tim mạch, huyết áp bất ổn, mất ngủ. Cần kiểm soát cảm xúc và stress.",
+         tot:"Thiền tĩnh tâm, đi bộ nhẹ, ngủ đủ giấc trước 23h. Hạn chế đồ ăn cay nóng." },
+  tho: { co_quan:"Tỳ vị (dạ dày, lá lách), tụy, môi, cơ bắp.",
+         canh_giac:"Dễ gặp vấn đề tiêu hóa, đau dạ dày, tiểu đường. Cần ăn đúng giờ và hạn chế lo lắng quá mức.",
+         tot:"Ăn uống điều độ, tập thể dục đều đặn nhẹ nhàng, dưỡng tinh thần thoải mái." },
+  kim: { co_quan:"Phổi, đại trường, da, mũi, hệ hô hấp.",
+         canh_giac:"Dễ mắc các bệnh hô hấp, viêm phổi, dị ứng da. Cần tránh môi trường ô nhiễm.",
+         tot:"Tập hít thở sâu, khí công, tránh hút thuốc. Không gian sạch thoáng giúp hồi phục tốt." },
+  thuy:{ co_quan:"Thận, bàng quang, tai, xương, tóc, hệ sinh dục.",
+         canh_giac:"Dễ gặp bệnh thận, xương khớp, tai nghe kém khi lớn tuổi. Cần giữ ấm và ngủ đủ giấc.",
+         tot:"Dưỡng thận bằng uống đủ nước, nghỉ ngơi sớm, tránh thức khuya. Thực phẩm màu đen tốt cho thận." }
+};
+
+// ── SỨC KHỎE BỔ SUNG THEO NGŨ HÀNH THIẾU / THỪA ──
+const SK_THIEU_THUA = {
+  kim:{ thieu:"Thiếu Kim → Phổi và hệ hô hấp yếu. Nên bổ sung thực phẩm màu trắng (củ cải, lê), hít thở không khí trong lành.", du:"Thừa Kim → Dễ bị căng thẳng, tức ngực. Cần Thủy (uống đủ nước, thư giãn) để điều hòa." },
+  moc:{ thieu:"Thiếu Mộc → Gan mật dễ tổn thương, mắt mỏi. Bổ sung rau xanh, tránh rượu bia.", du:"Thừa Mộc → Hay đau đầu, căng thẳng thần kinh. Cần Kim (dứt khoát, kỷ luật nghỉ ngơi) kiềm chế." },
+  thuy:{ thieu:"Thiếu Thủy → Thận yếu, khô người, hay mệt mỏi. Uống đủ 2 lít nước/ngày, ngủ sớm trước 23h.", du:"Thừa Thủy → Hay phù nề, hệ tiêu hóa kém. Cần Thổ (ăn uống đúng giờ, ổn định) để cân bằng." },
+  hoa:{ thieu:"Thiếu Hỏa → Tim mạch cần chú ý, dễ lạnh người. Tập thể dục đều, giữ tinh thần vui vẻ.", du:"Thừa Hỏa → Dễ viêm nhiễm, huyết áp cao. Cần Thủy (làm mát, giảm stress) điều hòa." },
+  tho:{ thieu:"Thiếu Thổ → Tỳ vị yếu, ăn không ngon, hay lo lắng. Ăn uống điều độ, tránh bỏ bữa.", du:"Thừa Thổ → Tiêu hóa chậm, dễ béo phì. Cần Mộc (vận động, ra ngoài nhiều) cân bằng." }
+};
+
+// ── GIA ĐÌNH - HÔN NHÂN - CON CÁI ──
+// Theo Nhật Chi (cung hôn nhân)
+const GD_NHAT_CHI = {
+  "子":{ hon_nhan:"Nhật Chi Tý — Người bạn đời thông minh, nhạy bén. Hôn nhân có thể đến muộn nhưng bền vững nếu hai bên tôn trọng nhau. Cần tránh xung đột lời nói.",
+         con_cai:"Dễ có con trai. Con cái thông minh nhưng cần được định hướng sớm." },
+  "丑":{ hon_nhan:"Nhật Chi Sửu — Người bạn đời cần cù, trung thực. Hôn nhân ổn định nhưng thiếu lãng mạn. Cần chủ động thể hiện tình cảm hơn.",
+         con_cai:"Con cái chăm chỉ, có ý thức trách nhiệm. Dễ sinh con gái đầu lòng." },
+  "寅":{ hon_nhan:"Nhật Chi Dần — Người bạn đời năng động, có chí tiến thủ. Hôn nhân cần sự tự do và tôn trọng lẫn nhau. Tránh kiểm soát nhau quá mức.",
+         con_cai:"Con cái cá tính mạnh, độc lập. Cần dạy con tính kiên nhẫn." },
+  "卯":{ hon_nhan:"Nhật Chi Mão — Người bạn đời hiền lành, khéo léo. Hôn nhân nhìn chung hòa thuận nhưng đôi khi thiếu quyết đoán trong các quyết định lớn.",
+         con_cai:"Dễ có con, con cái thường có tài năng nghệ thuật hoặc thiên hướng sáng tạo." },
+  "辰":{ hon_nhan:"Nhật Chi Thìn — Người bạn đời có bản lĩnh, nhiều tham vọng. Hôn nhân có thể gặp sóng gió nhưng vượt qua được sẽ rất bền chặt.",
+         con_cai:"Con cái thông minh, có chí khí. Cần môi trường giáo dục tốt để phát huy." },
+  "巳":{ hon_nhan:"Nhật Chi Tỵ — Người bạn đời thông minh, tinh tế. Hôn nhân cần sự chia sẻ cởi mở, tránh giữ bí mật với nhau.",
+         con_cai:"Con cái sắc sảo, có duyên với học vấn. Dễ có con muộn." },
+  "午":{ hon_nhan:"Nhật Chi Ngọ — Người bạn đời nhiệt tình, hào phóng. Hôn nhân sôi nổi nhưng cần kiểm soát cảm xúc để tránh xung đột nóng vội.",
+         con_cai:"Con cái hoạt bát, cá tính. Dễ có con trai và con rất thương cha/mẹ." },
+  "未":{ hon_nhan:"Nhật Chi Mùi — Người bạn đời nhân hậu, gia đình trị. Hôn nhân ấm áp nhưng đôi khi cả hai cần thoát ra khỏi vùng an toàn để phát triển.",
+         con_cai:"Dễ có nhiều con. Con cái hiếu thảo và gắn bó với gia đình." },
+  "申":{ hon_nhan:"Nhật Chi Thân — Người bạn đời thông minh, nhanh nhạy. Hôn nhân cần sự tin tưởng vì cả hai đều có tính độc lập cao.",
+         con_cai:"Con cái lanh lợi, khéo léo. Nên định hướng nghề nghiệp sớm cho con." },
+  "酉":{ hon_nhan:"Nhật Chi Dậu — Người bạn đời tinh tế, có tiêu chuẩn cao. Hôn nhân có thể trải qua giai đoạn chọn lọc kỹ nhưng khi đã kết hôn thường rất chung thủy.",
+         con_cai:"Dễ sinh con gái. Con cái có gu thẩm mỹ tốt và học giỏi." },
+  "戌":{ hon_nhan:"Nhật Chi Tuất — Người bạn đời trung thành, bảo vệ tốt. Hôn nhân bền vững nhưng cần tránh sự cứng đầu và cố chấp.",
+         con_cai:"Con cái ngoan ngoãn, có tinh thần trách nhiệm. Dễ có con trai." },
+  "亥":{ hon_nhan:"Nhật Chi Hợi — Người bạn đời tự do, phóng khoáng. Hôn nhân cần sự tự do tinh thần cho cả hai. Tránh ràng buộc quá mức.",
+         con_cai:"Con cái thông minh, có trực giác tốt. Cần không gian phát triển để phát huy hết tiềm năng." }
+};
+
+// ── GIA ĐÌNH BỔ SUNG THEO GIỚI TÍNH & THẬP THẦN ──
+const GD_GIOI_TINH = {
+  nam: {
+    co_ban:"Với nam giới, Tài tinh đại diện cho vợ và tài lộc. Quan/Sát đại diện cho con cái (đặc biệt con trai). Thực Thần/Thương Quan đại diện cho con gái.",
+    tot:"Có Tài tinh và Nhật Chi tốt: Dễ có hôn nhân hạnh phúc, vợ hiền đảm đang, kinh tế gia đình ổn định.",
+    can_chu_y:"Nếu Tài tinh quá nhiều hoặc Tài tinh lộ nhiều ở cột Giờ/Tháng: Cần thận trọng trong chuyện tình cảm, tránh đào hoa ảnh hưởng hôn nhân."
+  },
+  nu: {
+    co_ban:"Với nữ giới, Quan/Sát đại diện cho chồng. Thực Thần/Thương Quan đại diện cho con cái.",
+    tot:"Có Chính Quan và Nhật Chi tốt: Hôn nhân thuận lợi, chồng tử tế, gia đình hòa thuận.",
+    can_chu_y:"Nếu Thương Quan quá vượng (đặc biệt trong Tháng Ngọ, Dậu): Cần chú ý thái độ với người bạn đời, tránh bộc trực quá mức ảnh hưởng đến hôn nhân."
+  }
+};
+
+// ── CÔNG VIỆC & TÀI CHÍNH THEO NHẬT CAN ──
+const CV_NHAT_CAN = {
+  "甲":{ nghe_nghiep:"Lãnh đạo, quản lý, giáo dục, luật pháp, nông lâm nghiệp, kiến trúc, xây dựng.",
+         tai_chinh:"Tài lộc đến từ sự nỗ lực bền bỉ và uy tín cá nhân. Không hợp với đầu tư mạo hiểm ngắn hạn.",
+         kien_thuc:"Học vấn cao, thích nghiên cứu chuyên sâu. Dễ đạt thành tựu trong lĩnh vực học thuật và chuyên môn." },
+  "乙":{ nghe_nghiep:"Nghệ thuật, y tế, tư vấn, chăm sóc sắc đẹp, thiết kế, truyền thông, dịch vụ.",
+         tai_chinh:"Tài lộc linh hoạt, có nhiều nguồn thu nhập nhỏ. Nên tích lũy dần thay vì đầu tư lớn một lần.",
+         kien_thuc:"Học giỏi các môn nghệ thuật, ngôn ngữ, tâm lý. Học qua thực hành hiệu quả hơn lý thuyết." },
+  "丙":{ nghe_nghiep:"Truyền thông, giải trí, marketing, kinh doanh bán lẻ, chính trị, diễn giả, giáo viên.",
+         tai_chinh:"Kiếm tiền nhanh nhưng cũng tiêu nhanh. Cần kỷ luật tài chính và có người tư vấn quản lý tài sản.",
+         kien_thuc:"Giỏi trình bày và thuyết phục. Nên đầu tư học các kỹ năng giao tiếp và quản lý." },
+  "丁":{ nghe_nghiep:"Giáo dục, nghiên cứu, nghệ thuật tinh tế, tâm lý học, chiêm tinh học, tư vấn tâm linh.",
+         tai_chinh:"Tài lộc đến dần dần và ổn định. Phù hợp với tích lũy tài sản dài hạn hơn là kinh doanh nóng.",
+         kien_thuc:"Tư duy sâu sắc, học kỹ trước khi hành động. Giỏi trong các ngành cần sự kiên trì nghiên cứu." },
+  "戊":{ nghe_nghiep:"Bất động sản, xây dựng, nông nghiệp, quản lý, chính phủ, ngân hàng, tài chính truyền thống.",
+         tai_chinh:"Tài lộc đến từ sự ổn định và tích lũy lâu dài. Hợp đầu tư bất động sản và các kênh an toàn.",
+         kien_thuc:"Học có chiều sâu, thích kiến thức thực tiễn. Phù hợp với các bằng cấp chuyên môn dài hạn." },
+  "己":{ nghe_nghiep:"Y tế, chăm sóc sức khỏe, giáo dục, dịch vụ xã hội, tư vấn, quản lý nhân sự.",
+         tai_chinh:"Tài lộc đến từ công việc chăm chỉ và mối quan hệ tốt. Cần tránh bảo lãnh cho người khác.",
+         kien_thuc:"Học giỏi các ngành liên quan đến con người và xã hội. Chú trọng vào thực hành và ứng dụng." },
+  "庚":{ nghe_nghiep:"Quân sự, pháp luật, công nghiệp nặng, tài chính, bảo hiểm, cảnh sát, kỹ thuật.",
+         tai_chinh:"Kiếm tiền nhanh và nhiều khi ở đỉnh cao. Cần cẩn thận chi tiêu và tránh đầu tư bốc đồng.",
+         kien_thuc:"Học nhanh nhưng cần kiên trì đến cuối. Giỏi các môn kỹ thuật, công nghệ, tài chính." },
+  "辛":{ nghe_nghiep:"Trang sức, mỹ phẩm, nghệ thuật, thiết kế thời trang, kế toán tài chính, ngoại giao.",
+         tai_chinh:"Tài lộc đến từ chuyên môn cao và danh tiếng. Hợp nghề độc lập, tư vấn chuyên gia.",
+         kien_thuc:"Học giỏi các ngành đòi hỏi sự tinh tế và chính xác. Thích học và thực hành cái đẹp." },
+  "壬":{ nghe_nghiep:"Thương mại, du lịch, logistics, công nghệ thông tin, truyền thông, nghiên cứu khoa học.",
+         tai_chinh:"Đa dạng nguồn thu, nhạy bén trong đầu tư. Cần tránh phân tán quá nhiều, chọn 1-2 hướng chính.",
+         kien_thuc:"Học nhanh, tự học hiệu quả. Giỏi phân tích và tổng hợp thông tin từ nhiều nguồn." },
+  "癸":{ nghe_nghiep:"Y học, dược, tâm lý học, nghiên cứu xã hội, tài chính vi mô, nghệ thuật, văn học.",
+         tai_chinh:"Tài lộc đến không đều, nhưng trực giác tài chính tốt. Hợp đầu tư theo cảm nhận và nghiên cứu kỹ.",
+         kien_thuc:"Nhạy bén trong học tập, giỏi cảm nhận và thấu hiểu. Hợp các ngành cần sự nhạy cảm và tư duy sáng tạo." }
+};
+
+// ── CÔNG VIỆC BỔ SUNG THEO DỤNG THẦN ──
+const CV_DUNG_THAN = {
+  kim: "Dụng Thần Kim: Phù hợp làm việc trong môi trường có kỷ luật, cần sự chính xác và quyết đoán. Các ngành tài chính, luật, công nghệ, quản lý cấp cao đặc biệt thuận lợi.",
+  moc: "Dụng Thần Mộc: Công việc liên quan đến giáo dục, văn hóa, sáng tạo, môi trường xanh sẽ mang lại nhiều thuận lợi. Nên đặt cây xanh trong không gian làm việc.",
+  thuy:"Dụng Thần Thủy: Phù hợp công việc cần giao tiếp, di chuyển, thông tin. Thương mại, du lịch, truyền thông là hướng đi sáng. Màu đen-xanh trong văn phòng giúp tăng vận.",
+  hoa: "Dụng Thần Hỏa: Công việc cần sáng tạo, trình bày, tương tác trực tiếp với khách hàng rất phù hợp. Ánh sáng tốt trong văn phòng tăng năng lượng tích cực.",
+  tho: "Dụng Thần Thổ: Bất động sản, xây dựng, nông nghiệp, dịch vụ là hướng đi thuận lợi. Sự ổn định và tích lũy lâu dài là chìa khóa tài chính bền vững."
+};
+
+// ── HÀM TẠO BLOCK HTML ──
+function lgBlock(icon, title, content, borderColor, tag){
+    return `<div class="lg-block" style="border-left-color:${borderColor||'#7d441e'}">
+        <div class="lg-block-title">${icon} ${title} ${tag||''}</div>
+        <div>${content}</div>
+    </div>`;
+}
+function lgTag(text, cls){ return `<span class="lg-tag ${cls}">${text}</span>`; }
+
+// ── LUẬN TÍNH CÁCH ──
+function luanTinhCach(dm, thanLuc, gioiTinh){
+    const tc = TC_NHAT_CAN[dm];
+    const tl = TC_THAN_LUC[thanLuc.level] || "";
+    const sex = gioiTinh === 1 ? "nam" : "nữ";
+    let html = "";
+    html += lgBlock("🌟","Bản Chất Cốt Lõi — " + tc.ten,
+        `<b>Điểm mạnh:</b> ${tc.chinh}<br><br><b>Điểm cần cải thiện:</b> ${tc.phu}`,
+        "#7d441e", lgTag("Nhật Can","tag-tot"));
+    html += lgBlock("🤝","Quan Hệ & Xã Giao", tc.quan_he, "#5a67d8", lgTag("Xã hội","tag-trung"));
+    html += lgBlock("⚖️","Đánh Giá Theo Thân Lực", tl, "#3b82f6", lgTag(thanLuc.label,"tag-trung"));
+    return html;
+}
+
+// ── LUẬN SỨC KHỎE ──
+function luanSucKhoe(dm, nguhanh){
+    const dmE = E[dm];
+    const sk = SK_NGU_HANH[dmE];
+    let html = "";
+    html += lgBlock("🫀","Cơ Quan Cần Chú Ý",
+        `<b>Hành Nhật Can (${NGU_HANH_NAME[dmE]}):</b> ${sk.co_quan}<br><br><b>⚠️ Cảnh giác:</b> ${sk.canh_giac}<br><br><b>✅ Cách bảo dưỡng:</b> ${sk.tot}`,
+        "#ef4444", lgTag("Chủ yếu","tag-xau"));
+
+    // Tìm hành thiếu và thừa
+    let entries = Object.entries(nguhanh).sort((a,b)=>a[1]-b[1]);
+    let thieu = entries[0][0], thua = entries[4][0];
+    html += lgBlock("📊","Cân Bằng Ngũ Hành & Sức Khỏe",
+        `<b>Hành thiếu (${NGU_HANH_NAME[thieu]}):</b> ${SK_THIEU_THUA[thieu]?.thieu||""}<br><br><b>Hành thừa (${NGU_HANH_NAME[thua]}):</b> ${SK_THIEU_THUA[thua]?.du||""}`,
+        "#f97316", lgTag("Bổ sung","tag-trung"));
+    html += lgBlock("💊","Lời Khuyên Chung",
+        "Duy trì thói quen kiểm tra sức khỏe định kỳ 6 tháng/lần. Chú ý theo dõi các cơ quan tương ứng với hành Nhật Can và hành đang thiếu trong lá số. Kết hợp điều chỉnh môi trường sống theo màu sắc và hướng của Dụng Thần để hỗ trợ sức khỏe tổng thể.",
+        "#10b981", lgTag("Khuyến nghị","tag-tot"));
+    return html;
+}
+
+// ── LUẬN GIA ĐÌNH - HÔN NHÂN ──
+function luanGiaDinh(dm, b, gioiTinh, thanSatList){
+    const nhatChi = b.getDayZhi();
+    const gd = GD_NHAT_CHI[nhatChi];
+    const gioi = GD_GIOI_TINH[gioiTinh===1?"nam":"nu"];
+    const hasCothan = thanSatList.includes("Cô Thần");
+    const hasQuatu  = thanSatList.includes("Quả Tú");
+    const hasThienAt= thanSatList.includes("Thiên Ất");
+    let html = "";
+    html += lgBlock("💑","Hôn Nhân & Người Bạn Đời",
+        gd.hon_nhan, "#e91e8c", lgTag("Nhật Chi "+VN[nhatChi],"tag-tot"));
+    html += lgBlock("👶","Con Cái",
+        gd.con_cai, "#9c27b0", lgTag("Con cái","tag-tot"));
+    html += lgBlock(gioiTinh===1?"👨":"👩","Thông Tin Theo Giới Tính",
+        `<b>Tổng quan:</b> ${gioi.co_ban}<br><br><b>Thuận lợi:</b> ${gioi.tot}<br><br><b>Cần chú ý:</b> ${gioi.can_chu_y}`,
+        "#7d441e", lgTag(gioiTinh===1?"Nam":"Nữ","tag-trung"));
+    if(hasCothan || hasQuatu){
+        html += lgBlock("⚠️","Lưu Ý Thần Sát",
+            `${hasCothan?"Có <b>Cô Thần</b> trong lá số: Dễ có giai đoạn cô đơn trong tình cảm, hôn nhân nên sau 28 tuổi. Cần chủ động xây dựng mối quan hệ xã hội.<br><br>":""}${hasQuatu?"Có <b>Quả Tú</b> trong lá số: Tương tự Cô Thần, ảnh hưởng đến duyên hôn nhân. Chú ý chọn người bạn đời phù hợp và đừng vội vàng.<br>":""}`,
+            "#ef4444", lgTag("Hung Sát","tag-xau"));
+    }
+    if(hasThienAt){
+        html += lgBlock("✨","Quý Nhân Hỗ Trợ",
+            "Có <b>Thiên Ất Quý Nhân</b> trong lá số: Thường gặp được người tốt hỗ trợ trong cuộc sống, hôn nhân dễ gặp người phù hợp hơn. Đây là dấu hiệu may mắn trong các mối quan hệ.",
+            "#10b981", lgTag("Cát Tinh","tag-tot"));
+    }
+    return html;
+}
+
+// ── LUẬN CÔNG VIỆC & TÀI CHÍNH ──
+function luanCongViec(dm, dt, nguhanh, thanSatList){
+    const cv = CV_NHAT_CAN[dm];
+    const dtCV = CV_DUNG_THAN[dt.dungThan]||"";
+    const hasDichMa = thanSatList.includes("Dịch Mã");
+    const hasTuongTinh = thanSatList.includes("Tướng Tinh");
+    const hasHoaCai = thanSatList.includes("Hoa Cái");
+    let html = "";
+    html += lgBlock("🏢","Ngành Nghề Phù Hợp",
+        cv.nghe_nghiep, "#0077b6", lgTag("Nhật Can "+VN[dm],"tag-tot"));
+    html += lgBlock("💰","Tài Lộc & Đầu Tư",
+        cv.tai_chinh, "#f59e0b", lgTag("Tài chính","tag-trung"));
+    html += lgBlock("📚","Học Vấn & Phát Triển",
+        cv.kien_thuc, "#5a67d8", lgTag("Tri thức","tag-tot"));
+    html += lgBlock("🎯","Điều Chỉnh Theo Dụng Thần",
+        dtCV, "#16a34a", lgTag("Dụng Thần "+NGU_HANH_NAME[dt.dungThan],"tag-tot"));
+    if(hasDichMa){
+        html += lgBlock("✈️","Dịch Mã — Xuất Ngoại & Di Chuyển",
+            "Có <b>Dịch Mã</b> trong lá số: Nghề nghiệp liên quan đến di chuyển, xuất ngoại, logistics, du lịch, ngoại thương rất phù hợp. Thường có cơ hội làm việc ở nước ngoài hoặc xa nhà.",
+            "#0077b6", lgTag("Cát Tinh","tag-tot"));
+    }
+    if(hasTuongTinh){
+        html += lgBlock("⭐","Tướng Tinh — Phúc Lộc Quan Trường",
+            "Có <b>Tướng Tinh</b> trong lá số: Dễ thăng tiến trong môi trường công sở, nhà nước. Có quý nhân hỗ trợ sự nghiệp. Phù hợp làm việc trong các tổ chức lớn.",
+            "#f59e0b", lgTag("Cát Tinh","tag-tot"));
+    }
+    if(hasHoaCai){
+        html += lgBlock("🎨","Hoa Cái — Tài Năng Nghệ Thuật",
+            "Có <b>Hoa Cái</b> trong lá số: Năng khiếu nghệ thuật, sáng tạo hoặc tâm linh nổi bật. Dễ thành công trong các ngành sáng tạo, thiết kế, văn hóa nghệ thuật. Đây cũng là dấu hiệu người có trực giác và tư duy độc đáo.",
+            "#9c27b0", lgTag("Cát Tinh","tag-tot"));
+    }
+    return html;
+}
+
+function run() {
+    try {
+        const y=parseInt(yIn.value), m=parseInt(mIn.value), d=parseInt(dIn.value), h=parseInt(document.getElementById('hIn').value);
+        const gNam = parseInt(document.querySelector('#sexGroup .active').dataset.val);
+        const isAm = document.querySelector('#calendarGroup .active').dataset.val === 'lunar';
+        
+        document.getElementById("res").style.display="block";
+        let solar = isAm ? Lunar.fromYmd(y,m,d).getSolar() : Solar.fromYmdHms(y,m,d,h,0,0);
+        const lunar = Lunar.fromSolar(solar), b = lunar.getEightChar(), dm = b.getDayGan();
+
+        // 1. GRID HIỂN THỊ
+        document.getElementById("grid").innerHTML=[{l:"Trụ Giờ",c:b.getTimeGan(),z:b.getTimeZhi()},{l:"Nhật Chủ",c:b.getDayGan(),z:b.getDayZhi(),m:1},{l:"Trụ Tháng",c:b.getMonthGan(),z:b.getMonthZhi()},{l:"Trụ Năm",c:b.getYearGan(),z:b.getYearZhi()}].map(x=>`<div class="pillar ${x.m?'nhat-chu-box':''}">
+            <div class="form-label" style="color:#555; margin-bottom:10px;">${x.l}</div>
+            <div style="font-size:16px; font-weight:800; color:#999; margin-bottom:15px;">${x.m?'NHẬT CHỦ':getG(dm,x.c)}</div>
+            <div class="can-val ${E[x.c]}">${VN[x.c]}</div><div class="chi-val ${E[x.z]}">${VN[x.z]}</div>
+            <div class="ts-badge">${getVTS(dm,x.z)}</div>
+            <div class="nap-am-text">${NAP_AM[x.c+x.z]||""}</div>
+            <div class="tang-box">${HD[x.z].map(c=>`<div class="${E[c]}">${VN[c]} <small style="color:#aaa;font-weight:400;font-size:14px;">(${getG(dm,c)})</small></div>`).join('')}</div>
+        </div>`).join('');
+
+        // 2. EXTRA INFO
+        document.getElementById("oThai").innerText = VN[CANS[(CANS.indexOf(b.getMonthGan())+1)%10]]+" "+VN[ZHIS[(ZHIS.indexOf(b.getMonthZhi())+3)%12]];
+        // ===== MỆNH CUNG (công thức chuẩn) =====
+        // Số tháng âm lịch thực (1-12)
+        const thangAL = lunar.getMonth();
+        // Số thứ tự địa chi giờ (Tý=1, Sửu=2, ..., Hợi=12)
+        const gioAL = ZHIS.indexOf(b.getTimeZhi()) + 1;
+        // Địa chi Mệnh Cung: 14 - tháng - giờ
+        let mcZhiNum = 14 - thangAL - gioAL;
+        while(mcZhiNum <= 0) mcZhiNum += 12;
+        while(mcZhiNum > 12) mcZhiNum -= 12;
+        const mcZhi = ZHIS[mcZhiNum - 1];
+        // Thiên can Mệnh Cung theo Ngũ Hổ Độn Niên
+        // Giáp/Kỷ → Bính Dần, Ất/Canh → Mậu Dần, Bính/Tân → Canh Dần, Đinh/Nhâm → Nhâm Dần, Mậu/Quý → Giáp Dần
+        const NHD_BASE = [2, 4, 6, 8, 0]; // index trong CANS: Bính=2,Mậu=4,Canh=6,Nhâm=8,Giáp=0
+        const nienCanGroup = CANS.indexOf(b.getYearGan()) % 5;
+        const baseCan = NHD_BASE[nienCanGroup]; // can của tháng Dần (tháng 1)
+        // Từ tháng Dần (index 2 trong ZHIS) đến mcZhi, can tăng dần
+        const mcCanIdx = (baseCan + (mcZhiNum - 1)) % 10;
+        const mcC = CANS[mcCanIdx];
+        document.getElementById("oMCung").innerText = VN[mcC]+" "+VN[mcZhi];
+        const kv=(c,z)=>VN[ZHIS[(ZHIS.indexOf(z)-CANS.indexOf(c)+22)%12]]+"-"+VN[ZHIS[(ZHIS.indexOf(z)-CANS.indexOf(c)+23)%12]];
+        document.getElementById("oNK").innerText = kv(b.getYearGan(),b.getYearZhi());
+        document.getElementById("oNJK").innerText = kv(b.getDayGan(),b.getDayZhi());
+
+        // 3. THẦN SÁT ENGINE
+        const getTS_Col=(pillarIdx)=>{
+            let s=[];
+            const curI = [b.getTimeZhi(), b.getDayZhi(), b.getMonthZhi(), b.getYearZhi()][pillarIdx];
+            const curC = [b.getTimeGan(), b.getDayGan(), b.getMonthGan(), b.getYearGan()][pillarIdx];
+            const yi=b.getYearZhi(), di=b.getDayZhi(), dc=b.getDayGan(), yc=b.getYearGan(), mi=b.getMonthZhi();
+        
+		// NIÊN THẦN 
+        if(yi === curI) s.push({n:"Thái Tuế", h:1});
+            // Logic các sao
+			
+            const TA={"甲":"丑未","戊":"丑未","庚":"丑未","乙":"子申","己":"子申","丙":"亥酉","丁":"亥酉","壬":"卯巳","癸":"卯巳"};
+            if(TA[dc] && TA[dc].includes(curI)) s.push({n:"Thiên Ất", h:0});
+            const DM={"申":"寅","子":"寅","辰":"寅","寅":"申","午":"申","戌":"申","亥":"巳","卯":"巳","未":"巳","巳":"亥","酉":"亥","丑":"亥"};
+            if(DM[yi] === curI || DM[di] === curI) s.push({n:"Dịch Mã", h:0});
+            const TT={"子":"子","辰":"子","申":"子","午":"午","寅":"午","戌":"午","卯":"卯","亥":"卯","未":"卯","酉":"酉","巳":"酉","丑":"酉"};
+            if(TT[yi] === curI) s.push({n:"Tướng Tinh", h:0});
+            const TS={"子":"午","辰":"午","申":"午","午":"子","寅":"子","戌":"子","卯":"酉","亥":"酉","未":"酉","酉":"卯","巳":"卯","丑":"卯"};
+            if(TS[yi] === curI) s.push({n:"Tai Sát", h:1});
+            const KS={"申":"巳","子":"巳","辰":"巳","寅":"亥","午":"亥","戌":"亥","巳":"寅","酉":"寅","丑":"寅","亥":"申","卯":"申","未":"申"};
+            if(KS[yi] === curI) s.push({n:"Kiếp Sát", h:1});
+            const QUATU={
+ "亥":"辰","子":"辰","丑":"辰",
+ "寅":"未","卯":"未","辰":"未",
+ "巳":"戌","午":"戌","未":"戌",
+ "申":"丑","酉":"丑","戌":"丑"
+};
+if(QUATU[yi] === curI) s.push({n:"Quả Tú", h:1});
+            const DH={"子":"午","午":"子","丑":"未","未":"丑","寅":"申","申":"寅","卯":"酉","酉":"卯","辰":"戌","戌":"辰","巳":"亥","亥":"巳"};
+            if(DH[yi] === curI) s.push({n:"Đại Hao", h:1});
+           
+            const LT={"甲":"寅","乙":"卯","丙":"巳","丁":"午","戊":"巳","己":"午","庚":"申","辛":"酉","壬":"亥","癸":"子"};
+const XUNG={"子":"午","午":"子","丑":"未","未":"丑","寅":"申","申":"寅","卯":"酉","酉":"卯","辰":"戌","戌":"辰","巳":"亥","亥":"巳"};
+if(XUNG[yi] === curI) s.push({n:"Tuế Phá", h:1});
+const TANGMON={"子":"寅","丑":"卯","寅":"辰","卯":"巳","辰":"午","巳":"未","午":"申","未":"酉","申":"戌","酉":"亥","戌":"子","亥":"丑"};
+if(TANGMON[yi] === curI) s.push({n:"Tang Môn", h:1});
+const BACHHO={"子":"申","丑":"酉","寅":"戌","卯":"亥","辰":"子","巳":"丑","午":"寅","未":"卯","申":"辰","酉":"巳","戌":"午","亥":"未"};
+if(BACHHO[yi] === curI) s.push({n:"Bạch Hổ", h:1});
+const PHUC={"子":"巳","丑":"午","寅":"未","卯":"申","辰":"酉","巳":"戌","午":"亥","未":"子","申":"丑","酉":"寅","戌":"卯","亥":"辰"};
+if(PHUC[yi] === curI) s.push({n:"Phúc Đức", h:0});
+const HOACAI={
+ "申":"辰","子":"辰","辰":"辰",
+ "寅":"戌","午":"戌","戌":"戌",
+ "亥":"未","卯":"未","未":"未",
+ "巳":"丑","酉":"丑","丑":"丑"
+};
+if(HOACAI[yi] === curI) s.push({n:"Hoa Cái", h:0});
+const COTHAN={
+ "亥":"寅","子":"寅","丑":"寅",
+ "寅":"巳","卯":"巳","辰":"巳",
+ "巳":"申","午":"申","未":"申",
+ "申":"亥","酉":"亥","戌":"亥"
+};
+if(COTHAN[yi] === curI) s.push({n:"Cô Thần", h:1});
+// ===== NGUYỆT THẦN =====
+
+// Thiên Đức
+const THIEN_DUC={
+ "寅":"丁","卯":"申","辰":"壬","巳":"辛",
+ "午":"亥","未":"甲","申":"癸","酉":"寅",
+ "戌":"丙","亥":"乙","子":"巳","丑":"庚"
+};
+if(curC === THIEN_DUC[mi]) s.push({n:"Thiên Đức", h:0});
+
+// Nguyệt Đức
+const NGUYET_DUC={
+ "寅":"丙","卯":"甲","辰":"壬","巳":"庚",
+ "午":"丙","未":"甲","申":"壬","酉":"庚",
+ "戌":"丙","亥":"甲","子":"壬","丑":"庚"
+};
+if(curC === NGUYET_DUC[mi]) s.push({n:"Nguyệt Đức", h:0});
+
+// Nguyệt Sát (hung)
+const NGUYET_SAT={
+ "寅":"申","卯":"酉","辰":"戌","巳":"亥",
+ "午":"子","未":"丑","申":"寅","酉":"卯",
+ "戌":"辰","亥":"巳","子":"午","丑":"未"
+};
+if(NGUYET_SAT[mi] === curI) s.push({n:"Nguyệt Sát", h:1});
+
+            if(ZHIS[(ZHIS.indexOf(LT[dc])+1)%12] === curI) s.push({n:"Kình Dương", h:1});
+            const THAP_AC=[
+ "甲辰","乙巳","丙申","丁亥",
+ "戊戌","己丑","庚辰","辛巳",
+ "壬申","癸亥"
+];
+
+if(pillarIdx === 1 && THAP_AC.includes(dc+di)){
+    s.push({n:"Thập Ác", h:1});
+}
+
+            return s;
+        };
+        function renderTS(arr){
+    return arr.map(x=>`<span class='ts-val ${x.h?'hung-sao':''}'>${x.n}</span>`).join('');
+}
+		document.getElementById("tsT").innerHTML = renderTS(getTS_Col(0));
+document.getElementById("tsD").innerHTML = renderTS(getTS_Col(1));
+document.getElementById("tsM").innerHTML = renderTS(getTS_Col(2));
+document.getElementById("tsN").innerHTML = renderTS(getTS_Col(3));
+        // ===== THÂN VỰC & SCORING =====
+        let allStars = [];
+        for(let i=0;i<4;i++){ getTS_Col(i).forEach(x=> allStars.push(x.n)); }
+
+        // Ngũ hành (có tàng can)
+        let nguhanh = calcNguHanh(b);
+        document.getElementById("elementUI").innerHTML = renderElementUI(nguhanh);
+
+        // Thân vượng / nhược
+        let thanLuc = calcThanLuc(b);
+        document.getElementById("thanLucUI").innerHTML = renderThanLucUI(thanLuc, dm);
+
+        // Dụng Thần (dựa vào Thân vượng/nhược + hành Nhật Chủ)
+        const dmE = E[dm];
+        let dt = findDungThan(nguhanh, thanLuc.level, dmE);
+        document.getElementById("dungThanUI").innerHTML = renderDungThanUI(dt);
+
+        // Điểm mệnh thân
+        let score = calcScore(b, allStars);
+        document.getElementById("scoreUI").innerHTML = renderScoreUI(score);
+
+        // ===== LUẬN GIẢI TỔNG QUÁT =====
+        document.getElementById("ct-tinhcach").innerHTML = luanTinhCach(dm, thanLuc, gNam);
+        document.getElementById("ct-suckhoe").innerHTML  = luanSucKhoe(dm, nguhanh);
+        document.getElementById("ct-giadinh").innerHTML  = luanGiaDinh(dm, b, gNam, allStars);
+        document.getElementById("ct-congviec").innerHTML = luanCongViec(dm, dt, nguhanh, allStars);
+       
+	   // --- KHÔI PHỤC ĐẠI VẬN & LƯU NIÊN ---
+        
+        // 1. Xác định chiều vận
+        const yearGan_fix = b.getYearGan(); 
+        const isMale_fix = (gNam === 1);
+        const isDuongYear_fix = ["甲","丙","戊","庚","壬"].includes(yearGan_fix);
+        const dir_fix = (isMale_fix === isDuongYear_fix) ? 1 : -1;
+        const fw_fix = (dir_fix === 1); 
+
+        // 2. Tính số năm khởi vận (sA_fix)
+        const jq_fix = lunar.getJieQiTable();
+        const TIET_LIST = ["小寒","立春","惊蛰","驚蛰","清明","立夏","芒种","芒種","小暑","立秋","白露","寒露","立冬","大雪"];
+        
+        let list_TK = Object.entries(jq_fix)
+            .filter(([k]) => TIET_LIST.includes(k))
+            .map(([,v]) => v)
+            .sort((a,b) => a.getJulianDay() - b.getJulianDay());
+
+        if(list_TK.length < 6) {
+            list_TK = Object.values(jq_fix)
+                .sort((a,b) => a.getJulianDay() - b.getJulianDay())
+                .filter((_,i) => i % 2 === 0); 
+        }
+
+        let sA_fix = 3; // Khai báo mặc định để tránh lỗi "is not defined"
+        if(list_TK.length > 0) {
+            const target = fw_fix
+                ? list_TK.find(v => v.getJulianDay() > solar.getJulianDay())
+                : [...list_TK].reverse().find(v => v.getJulianDay() <= solar.getJulianDay());
+            if(target) {
+                const daysDiff = Math.abs(target.getJulianDay() - solar.getJulianDay());
+                sA_fix = Math.max(1, Math.round(daysDiff / 3));
+            }
+        }
+
+        // 3. Hiển thị Đại vận
+        let html_DV = "";
+        for(let i = 0; i < 8; i++) {
+            const cI = (CANS.indexOf(b.getMonthGan()) + dir_fix * (i + 1) + 10) % 10;
+            const zI = (ZHIS.indexOf(b.getMonthZhi()) + dir_fix * (i + 1) + 12) % 12;
+            const age_start = sA_fix + i * 10;
+            const year_start = y + age_start;
+            const current_year = new Date().getFullYear();
+            const isActive = current_year >= year_start && current_year < year_start + 10;
+
+            html_DV += `<div class="card ${isActive ? 'active-v' : ''}">
+                <div>${year_start}</div>
+                <b>
+                    <span class="${E[CANS[cI]]}">${VN[CANS[cI]]}</span> 
+                    <span class="${E[ZHIS[zI]]}">${VN[ZHIS[zI]]}</span>
+                </b>
+                <div style="font-size:11px;color:#aaa;margin-top:2px">${age_start} tuổi</div>
+            </div>`;
+        }
+
+        // 4. Hiển thị Lưu niên
+        let html_LN1 = "", html_LN2 = "";
+        for(let i = 0; i < 20; i++) {
+            const l_year = new Date().getFullYear() + i;
+            const l_lunar = Lunar.fromSolar(Solar.fromYmd(l_year, 6, 15));
+            const card_item = `<div class="card">
+                <div>${l_year}</div>
+                <b><span class="${E[l_lunar.getYearGan()]}">${VN[l_lunar.getYearGan()]}</span> <span class="${E[l_lunar.getYearZhi()]}">${VN[l_lunar.getYearZhi()]}</span></b>
+            </div>`;
+            if(i < 10) html_LN1 += card_item; else html_LN2 += card_item;
+        }
+
+        // Đổ dữ liệu vào HTML
+        document.getElementById("dv").innerHTML = html_DV;
+        document.getElementById("ln1").innerHTML = html_LN1;
+        document.getElementById("ln2").innerHTML = html_LN2;
+
+        // ===== LUẬN ĐẠI VẬN & LƯU NIÊN =====
+        const currentYear = new Date().getFullYear();
+        document.getElementById("ct-daivan").innerHTML  = luanDaiVan(dm, b, sA_fix, dir_fix, currentYear, y);
+        document.getElementById("ct-luunien").innerHTML = luanLuuNien(dm, b, currentYear);
+
+    } catch (e) {
+        console.error("Lỗi thực thi:", e);
+    }
+}
+</script>
+</body>
+</html>
